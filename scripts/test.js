@@ -14,6 +14,9 @@ esbuild.build({
   bundle: true,
   format: 'esm',
   outdir,
+  loader: {
+    '.scss': 'empty'
+  },
   external: [
     'tape',
     'forgo',
