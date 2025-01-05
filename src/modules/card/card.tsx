@@ -41,15 +41,15 @@ const Card: Component<CardProps> = initial => {
               <Icon id='circle' />
               <span class='sr-only'>Mark card as complete</span>
             </button>
-            <h4
+            <h3
               {...contentEditable}
               onblur={event => {
                 const title = (event.target as HTMLHeadingElement).innerText;
                 if (card.title !== title) setTitle(props.id)(title);
               }}
             >
-              {card.title}
-            </h4>
+              {card.title ?? 'New card'}
+            </h3>
             <div class='actions'>
               <CollapseButton id={id.tags}>
                 <Icon id='tag' />
@@ -95,7 +95,7 @@ const Card: Component<CardProps> = initial => {
               if (card.description !== description) setDescription(props.id)(description);
             }}
           >
-            {card.description}
+            {card.description ?? 'New description'}
           </p>
           <div
             class='tasks'

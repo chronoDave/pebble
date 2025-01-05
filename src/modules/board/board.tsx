@@ -95,7 +95,7 @@ const Board: Component<BoardProps> = initial => {
           }}
         >
           <header>
-            <h2
+            <h1
               {...contentEditable}
               onblur={event => {
                 const title = (event.target as HTMLHeadingElement).innerText;
@@ -103,7 +103,7 @@ const Board: Component<BoardProps> = initial => {
               }}
             >
               {board.title}
-            </h2>
+            </h1>
             <div class='actions'>
               <button
                 type='button'

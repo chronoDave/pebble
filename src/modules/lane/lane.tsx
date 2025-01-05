@@ -29,15 +29,15 @@ const Lane: Component<LaneProps> = initial => {
         <article id={lane.id} class='lane' data-size={lane.cards.length}>
           <header>
             <hgroup>
-              <h3
+              <h2
                 {...contentEditable}
                 onblur={event => {
                   const title = (event.target as HTMLHeadingElement).innerText;
                   if (title !== lane.title) setTitle(props.id)(title);
                 }}
               >
-                {lane.title}
-              </h3>
+                {lane.title ?? 'New lane'}
+              </h2>
               <span class='badge'>{lane.cards.length}</span>
             </hgroup>
             <div class='actions'>
