@@ -1,0 +1,10 @@
+body {
+  position: fixed;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  margin: 0;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--primary);
+}

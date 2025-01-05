@@ -1,3 +1,15 @@
+button {
+  border: unset;
+  background-color: unset;
+  color: inherit;
+  padding: unset;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: initial;
+  }
+}
+
 button, .btn {
   font-size: 1rem;
   min-width: 24px;
