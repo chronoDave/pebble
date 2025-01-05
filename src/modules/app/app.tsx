@@ -5,7 +5,6 @@ import * as forgo from 'forgo';
 import selector from './app.state';
 import Board from '../board/board';
 import Header from './header/header';
-import Footer from './footer/footer';
 
 import './app.scss';
 
@@ -22,8 +21,7 @@ const App: Component<AppProps> = () => {
           <main class='app'>
             <Board id={board} />
           </main>
-        ) : null,
-        <Footer />
+        ) : null
       ];
     }
   });

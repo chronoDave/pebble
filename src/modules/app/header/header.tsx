@@ -3,9 +3,13 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 import * as forgo from 'forgo';
 
 import Icon from '../../../components/icon/icon';
+import portal from '../../../components/portal/portal';
+import store from '../../../store/store';
+
 import DeleteBoard from './delete-board/delete-board';
 import SelectBoard from './select-board/select-board';
-import store from '../../../store/store';
+import ModalInfo from './modal-info/modal-info';
+
 import { create } from './header.state';
 
 import './header.scss';
@@ -33,6 +37,10 @@ const Header: Component<HeaderProps> = () => {
             <button type='button' onclick={() => store.undo()}>
               <Icon id='rotateLeft' />
               <span class='sr-only'>Undo</span>
+            </button>
+            <button type='button' onclick={() => portal(<ModalInfo />)}>
+              <Icon id='circleInfo' />
+              <span class='sr-only'>Open info modal</span>
             </button>
             {/* <button type='button' onclick={() => {
               try {

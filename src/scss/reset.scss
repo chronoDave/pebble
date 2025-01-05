@@ -1,10 +1,5 @@
-*, *:before, *:after {
+:root {
   box-sizing: border-box;
-}
-
-*:focus, *:focus-visible {
-  isolation: isolate;
-  z-index: 10;
 }
 
 body {
