@@ -3,7 +3,9 @@ import type { Board, Lane } from '../../../store/entities';
 import { produce } from 'immer';
 import * as actions from '../../../store/actions';
 import uid from '../../../lib/uid/uid';
-import store from '../../../store/store';
+import store, { selector } from '../../../store/store';
+
+export default selector(state => () => state?.active.board ?? null);
 
 export const create = () => {
   store.set(produce(draft => {

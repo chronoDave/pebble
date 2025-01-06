@@ -94,34 +94,6 @@ const Board: Component<BoardProps> = initial => {
             }
           }}
         >
-          <header>
-            <h1
-              {...contentEditable}
-              onblur={event => {
-                const title = (event.target as HTMLHeadingElement).innerText;
-                if (title !== board.title) setTitle(props.id)(title);
-              }}
-            >
-              {board.title}
-            </h1>
-            <div class='actions'>
-              <button
-                type='button'
-                onclick={() => {
-                  void selectImage().then(setBackground(props.id));
-                }}
-              >
-                <span class='sr-only'>Add background image</span>
-                <Icon id='imagePlus' />
-              </button>
-              {typeof board.background === 'string' ? (
-                <button type='button' onclick={() => setBackground(props.id)(null)}>
-                  <span class='sr-only'>Remove background image</span>
-                  <Icon id='imageRemove' />
-                </button>
-              ) : null}
-            </div>
-          </header>
           <ol>
             {board.lanes.map(lane => (
               <li key={lane}>

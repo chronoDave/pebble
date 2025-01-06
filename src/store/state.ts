@@ -19,6 +19,7 @@ export const schema = r.Record({
   }),
   active: r.Record({
     board: r.String.optional(),
+    drawer: r.Boolean.optional(),
     collapse: r.String.optional()
   })
 });
@@ -50,7 +51,8 @@ const state: State = {
     }
   },
   active: {
-    board: id.board
+    board: id.board,
+    drawer: true
   }
 };
 

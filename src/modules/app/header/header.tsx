@@ -9,8 +9,12 @@ import store from '../../../store/store';
 import DeleteBoard from './delete-board/delete-board';
 import SelectBoard from './select-board/select-board';
 import ModalInfo from './modal-info/modal-info';
+import selectImage from '../../../lib/input/image';
 
-import { create } from './header.state';
+import selector from './header.state';
+import BoardTitle from './board-title/board-title';
+import contentEditable from '../../../lib/contentEditable/contentEditable';
+import { setBackground } from '../../board/board.state';
 
 import './header.scss';
 
@@ -19,18 +23,35 @@ export type HeaderProps = {};
 const Header: Component<HeaderProps> = () => {
   const component = new forgo.Component<HeaderProps>({
     render() {
+      const id = selector.state();
+
       return (
         <header>
           <div>
-            <svg aria-hidden="true" class='logo' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path fill="none" d="M0 0h24v24H0z" />
-              <path class="fg" d="M11 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h6v18zm2 0h6c1.1 0 2-.9 2-2v-7h-8v9zm8-11V5c0-1.1-.9-2-2-2h-6v7h8z" />
-            </svg>
-            <SelectBoard id='select-board' />
-            <button type='button' onclick={create}>
-              <Icon id='plus' />
-              <span class='sr-only'>Create board</span>
+            <button type="button">
+              <Icon id='bars' />
+              <span class='sr-only'>
+                Open board drawer
+              </span>
             </button>
+            <BoardTitle />
+            {typeof id === 'string' && (
+              <button
+                type='button'
+                onclick={() => {
+                  void selectImage().then(setBackground(id));
+                }}
+              >
+                <span class='sr-only'>Add background image</span>
+                <Icon id='imagePlus' />
+              </button>
+            )}
+            {typeof id === 'string' ? (
+              <button type='button' onclick={() => setBackground(id)(null)}>
+                <span class='sr-only'>Remove background image</span>
+                <Icon id='imageRemove' />
+              </button>
+            ) : null}
             <DeleteBoard />
           </div>
           <div>
@@ -57,6 +78,8 @@ const Header: Component<HeaderProps> = () => {
       );
     }
   });
+
+  selector.subscribe()(component);
 
   return component;
 };
