@@ -3,6 +3,7 @@ import createSelector from '../lib/selector/selector';
 import state, { schema } from './state';
 import Storage from '../lib/storage/storage';
 import createDropzone from '../lib/dropzone/dropzone';
+import { produce } from 'immer';
 
 const storage = new Storage('state', schema);
 const store = new Store(storage.read() ?? state, {
@@ -22,8 +23,16 @@ const store = new Store(storage.read() ?? state, {
   .on(state => storage.write(state.current))
   .on(console.log);
 
-document.addEventListener('keydown', event => {
+document.addEventListener('keyup', event => {
   if (event.ctrlKey && event.key === 'z') store.undo();
+});
+
+document.addEventListener('keyup', event => {
+  if (event.key === 'Escape') {
+    store.set(produce(draft => {
+      draft.active.drawer = false;
+    }));
+  }
 });
 
 createDropzone(raw => {

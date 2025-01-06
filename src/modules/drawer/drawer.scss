@@ -1,0 +1,44 @@
+@use 'breakpoint';
+
+.drawer {
+  &[data-visible="false"] {
+    display: none;
+  }
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  isolation: isolate;
+  z-index: 20;
+  background-color: var(--black-alpha);
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--white);
+    padding: 1rem;
+    max-width: min(40ch, 90vw);
+    min-height: 100vh;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  ul + button {
+    margin-top: 0.5rem;
+  }
+}

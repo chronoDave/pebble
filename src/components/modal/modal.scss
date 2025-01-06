@@ -1,6 +1,6 @@
 @use 'breakpoint';
 
-[role="dialog"][aria-modal="true"] {
+.modal {
   background-color: var(--white);
   margin: 0 auto;
   max-width: breakpoint.$sm;

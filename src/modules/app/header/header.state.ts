@@ -25,3 +25,7 @@ export const create = () => {
     actions.active.board(board.id)(draft);
   }));
 };
+
+export const openDrawer = () => store.set(produce(draft => {
+  draft.active.drawer = true;
+}));

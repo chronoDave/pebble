@@ -2,9 +2,10 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
 
-import selector from './app.state';
 import Board from '../board/board';
+import Drawer from '../drawer/drawer';
 import Header from './header/header';
+import selector from './app.state';
 
 import './app.scss';
 
@@ -21,7 +22,8 @@ const App: Component<AppProps> = () => {
           <main class='app'>
             <Board id={board} />
           </main>
-        ) : null
+        ) : null,
+        <Drawer />
       ];
     }
   });

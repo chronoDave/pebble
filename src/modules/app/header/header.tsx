@@ -11,7 +11,7 @@ import SelectBoard from './select-board/select-board';
 import ModalInfo from './modal-info/modal-info';
 import selectImage from '../../../lib/input/image';
 
-import selector from './header.state';
+import selector, { openDrawer } from './header.state';
 import BoardTitle from './board-title/board-title';
 import contentEditable from '../../../lib/contentEditable/contentEditable';
 import { setBackground } from '../../board/board.state';
@@ -28,7 +28,7 @@ const Header: Component<HeaderProps> = () => {
       return (
         <header>
           <div>
-            <button type="button">
+            <button type="button" onclick={openDrawer}>
               <Icon id='bars' />
               <span class='sr-only'>
                 Open board drawer

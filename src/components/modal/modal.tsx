@@ -12,7 +12,12 @@ const Modal: Component<ModalProps> = () => {
   const component = new forgo.Component<ModalProps>({
     render(props) {
       return (
-        <div role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="dialog-title"
+          class="modal"
+        >
           <h2 id="dialog-title">{props.title}</h2>
           {props.children}
         </div>
