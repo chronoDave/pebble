@@ -4,12 +4,19 @@ import * as forgo from 'forgo';
 
 import Icon from '../../../components/icon/icon';
 
-import selector, { set } from './lane-contextmenu.state';
+import selector, {
+  set,
+  moveLeft,
+  moveRight,
+  remove
+} from './lane-contextmenu.state';
 
 import './lane-contextmenu.scss';
 
 export type LaneContextmenuProps = {
   id: string;
+  board: string;
+  lane: string;
   autoclose?: boolean;
 };
 
@@ -37,20 +44,38 @@ const LaneContextmenu: Component<LaneContextmenuProps> = initial => {
             }}
           >
             <li>
-              <button type="button" data-action="move" data-direction="left">
+              <button
+                type="button"
+                onclick={() => moveLeft({
+                  board: props.board,
+                  lane: props.lane
+                })}
+              >
                 <Icon id='arrowLeft' />
                 <span>Move left</span>
               </button>
             </li>
             <li>
-              <button type="button" data-action="move" data-direction="right">
+              <button
+                type="button"
+                onclick={() => moveRight({
+                  board: props.board,
+                  lane: props.lane
+                })}
+              >
                 <Icon id='arrowRight' />
                 <span>Move right</span>
               </button>
             </li>
             <li role="separator"></li>
             <li>
-              <button type="button" data-action="remove">
+              <button 
+                type="button"
+                onclick={() => remove({
+                  board: props.board,
+                  lane: props.lane
+                })}
+              >
                 <Icon id='trash' />
                 <span>Remove lane</span>
               </button>

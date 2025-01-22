@@ -3,19 +3,13 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 import * as forgo from 'forgo';
 
 import Lane from '../lane/lane';
-import contentEditable from '../../lib/contentEditable/contentEditable';
 import Icon from '../../components/icon/icon';
-import selectImage from '../../lib/input/image';
 
 import selector, {
   createLane,
-  deleteLane,
   moveCard,
   moveCardUp,
-  moveCardDown,
-  moveLane,
-  setBackground,
-  setTitle
+  moveCardDown
 } from './board.state';
 
 import './board.scss';
@@ -38,38 +32,19 @@ const Board: Component<BoardProps> = initial => {
             const card = button?.closest<HTMLElement>('.card');
             const lane = button?.closest<HTMLElement>('.lane');
 
-            if (button?.dataset.action === 'create') createLane(board.id);
-            if (button?.dataset.action === 'delete' && lane) deleteLane(board.id)(lane.id);
+            if (button?.dataset.action === 'move' && lane && card) {
+              if (button.dataset.direction === 'up') moveCardUp(card.id);
+              if (button.dataset.direction === 'down') moveCardDown(card.id);
+              if (button.dataset.direction === 'end') moveCard(card.id)({ lane: board.lanes[board.lanes.length - 1] });
 
-            if (button?.dataset.action === 'move' && lane) {
-              if (card) {
-                if (button.dataset.direction === 'up') moveCardUp(card.id);
-                if (button.dataset.direction === 'down') moveCardDown(card.id);
-                if (button.dataset.direction === 'end') moveCard(card.id)({ lane: board.lanes[board.lanes.length - 1] });
-  
-                if (button.dataset.direction === 'left') {
-                  const i = board.lanes.indexOf(lane.id);
-                  if (i > 0) moveCard(card.id)({ lane: board.lanes[i - 1] });
-                }
-  
-                if (button.dataset.direction === 'right') {
-                  const i = board.lanes.indexOf(lane.id);
-                  if (i < board.lanes.length) moveCard(card.id)({ lane: board.lanes[i + 1] });
-                }
-              } else {
-                if (button.dataset.direction === 'left') {
-                  const i = board.lanes.indexOf(lane.id);
-                  if (i > 0) {
-                    moveLane(lane.id)(-1);
-                  }
-                }
-  
-                if (button.dataset.direction === 'right') {
-                  const i = board.lanes.indexOf(lane.id);
-                  if (i < board.lanes.length) {
-                    moveLane(lane.id)(1);
-                  }
-                }
+              if (button.dataset.direction === 'left') {
+                const i = board.lanes.indexOf(lane.id);
+                if (i > 0) moveCard(card.id)({ lane: board.lanes[i - 1] });
+              }
+
+              if (button.dataset.direction === 'right') {
+                const i = board.lanes.indexOf(lane.id);
+                if (i < board.lanes.length) moveCard(card.id)({ lane: board.lanes[i + 1] });
               }
             }
           }}
@@ -114,12 +89,12 @@ const Board: Component<BoardProps> = initial => {
           <ol class="unstyled">
             {board.lanes.map(lane => (
               <li key={lane}>
-                <Lane id={lane} />
+                <Lane lane={lane} board={board.id} />
               </li>
             ))}
             <li>
               <div class='lane'>
-                <button type='button' data-action='create'>
+                <button type='button' onclick={() => createLane(board.id)}>
                   <Icon id='plus' />
                   Add lane
                 </button>

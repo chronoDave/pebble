@@ -19,19 +19,6 @@ export const createLane = (board: string) => {
   }));
 };
 
-export const deleteLane = (board: string) =>
-  (lane: string) => {
-    store.set(produce(draft => {
-      actions.lane.remove(lane)(draft);
-      actions.board.removeLane(board)(lane)(draft);
-    }));
-  };
-
-export const setTitle = (board: string) =>
-  (title: string) => {
-    store.set(produce(actions.board.setTitle(board)(title)));
-  };
-
 export const moveCard = (card: string) =>
   (to: { card?: string; lane?: string }) => {
     store.set(produce(actions.card.move(card)(to)));
@@ -44,15 +31,3 @@ export const moveCardUp = (card: string) => {
 export const moveCardDown = (card: string) => {
   store.set(produce(actions.card.move(card)({ n: 1 })));
 };
-
-export const moveLane = (lane: string) =>
-  (n: number) => {
-    store.set(produce(draft => {
-      actions.lane.move(lane)({ n })(draft);
-    }));
-  };
-
-export const setBackground = (board: string) =>
-  (background: string | null) => {
-    store.set(produce(actions.board.setBackground(board)(background)));
-  };

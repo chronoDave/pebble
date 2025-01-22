@@ -5,26 +5,24 @@ import * as forgo from 'forgo';
 import contentEditable from '../../lib/contentEditable/contentEditable';
 import Card from '../card/card';
 import Icon from '../../components/icon/icon';
+import LaneContextmenu from './lane-contextmenu/lane-contextmenu';
 import selector, {
   setTitle,
   createCard,
-  moveLeft,
-  moveRight,
-  removeCard,
-  removeLane
+  removeCard
 } from './lane.state';
 
 import './lane.scss';
-import LaneContextmenu from './lane-contextmenu/lane-contextmenu';
 
 export type LaneProps = {
-  id: string;
+  board: string;
+  lane: string;
 };
 
 const Lane: Component<LaneProps> = initial => {
   const component = new forgo.Component<LaneProps>({
     render(props) {
-      const lane = selector.state(props.id);
+      const lane = selector.state(props.lane);
 
       if (!lane) return null;
       return (
@@ -33,24 +31,22 @@ const Lane: Component<LaneProps> = initial => {
             <hgroup>
               <h2
                 {...contentEditable}
-                onblur={event => {
-                  const title = (event.target as HTMLHeadingElement).innerText;
-                  if (title !== lane.title) setTitle(props.id)(title);
-                }}
+                onblur={event => setTitle(lane)((event.target as HTMLHeadingElement).innerText)}
               >
                 {lane.title ?? 'New lane'}
               </h2>
               <span class='badge'>{lane.cards.length}</span>
             </hgroup>
             <div class='actions'>
-              <button
-                type='button'
-                onclick={() => createCard(props.id, 'start')}
-              >
+              <button type='button' onclick={() => createCard(props.lane)('start')}>
                 <Icon id='plus' />
                 <span class='sr-only'>Add card</span>
               </button>
-              <LaneContextmenu id={`lane-contextmenu-${props.id}`} />
+              <LaneContextmenu
+                id={`lane-contextmenu-${props.lane}`}
+                board={props.board}
+                lane={props.lane}
+              />
             </div>
           </header>
           <ol
@@ -59,14 +55,8 @@ const Lane: Component<LaneProps> = initial => {
               const button = (event.target as HTMLElement | null)?.closest('button');
               const card = button?.closest<HTMLElement>('.card');
 
-              if (button?.dataset.action === 'create') {
-                createCard(props.id, 'end');
-                event.stopPropagation();
-              }
-
               if (button?.dataset.action === 'delete' && card) {
-                removeCard(props.id)(card.id);
-                event.stopPropagation();
+                removeCard(props.lane)(card.id);
               }
             }}
           >
@@ -81,7 +71,10 @@ const Lane: Component<LaneProps> = initial => {
               </li>
             ))}
             <li data-dropzone>
-              <button type='button' data-action='create'>
+              <button
+                type='button'
+                onclick={() => createCard(props.lane)('end')}
+              >
                 <Icon id='plus' />
                 Add card
               </button>
@@ -92,7 +85,7 @@ const Lane: Component<LaneProps> = initial => {
     }
   });
 
-  selector.subscribe(initial.id)(component);
+  selector.subscribe(initial.lane)(component);
 
   return component;
 };
