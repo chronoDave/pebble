@@ -3,9 +3,6 @@
 
 .board {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: auto;
 
   > header {
     background-color: var(--white-alt);
@@ -36,11 +33,7 @@
 
     > li {
       display: flex;
-      justify-content: center;
-      overflow: auto;
-      flex-grow: 1;
       min-width: min(calc(100vw - 1rem), math.pxToRem(320));
-      padding: 0.5rem;
     }
   }
 

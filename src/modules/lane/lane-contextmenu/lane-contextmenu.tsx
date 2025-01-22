@@ -10,6 +10,7 @@ import './lane-contextmenu.scss';
 
 export type LaneContextmenuProps = {
   id: string;
+  autoclose?: boolean;
 };
 
 const LaneContextmenu: Component<LaneContextmenuProps> = initial => {
@@ -27,7 +28,14 @@ const LaneContextmenu: Component<LaneContextmenuProps> = initial => {
           >
             <Icon id='ellipsisVertical' />
           </button>
-          <ul id={props.id}>
+          <ul
+            id={props.id}
+            onclick={event => {
+              const button = (event.target as HTMLElement | null)?.closest('button');
+
+              if (button && props.autoclose !== false) set(null);
+            }}
+          >
             <li>
               <button type="button" data-action="move" data-direction="left">
                 <Icon id='arrowLeft' />

@@ -54,6 +54,7 @@ const Lane: Component<LaneProps> = initial => {
             </div>
           </header>
           <ol
+            class="unstyled"
             onclick={event => {
               const button = (event.target as HTMLElement | null)?.closest('button');
               const card = button?.closest<HTMLElement>('.card');

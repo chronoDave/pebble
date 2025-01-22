@@ -111,7 +111,7 @@ const Board: Component<BoardProps> = initial => {
             }
           }}
         >
-          <ol>
+          <ol class="unstyled">
             {board.lanes.map(lane => (
               <li key={lane}>
                 <Lane id={lane} />

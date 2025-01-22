@@ -5,7 +5,6 @@ import * as actions from '../../store/actions';
 import store, { selector } from '../../store/store';
 import { produce } from 'immer';
 import uid from '../../lib/uid/uid';
-import { collapse } from '../../store/actions/active';
 
 export default selector<string, Board | null>(
   state => id => state?.entity.board[id] ?? null
@@ -25,7 +24,6 @@ export const deleteLane = (board: string) =>
     store.set(produce(draft => {
       actions.lane.remove(lane)(draft);
       actions.board.removeLane(board)(lane)(draft);
-      collapse(null)(draft);
     }));
   };
 
@@ -51,7 +49,6 @@ export const moveLane = (lane: string) =>
   (n: number) => {
     store.set(produce(draft => {
       actions.lane.move(lane)({ n })(draft);
-      collapse(null)(draft);
     }));
   };
 
