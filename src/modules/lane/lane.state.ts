@@ -40,3 +40,13 @@ export const removeCard = (lane: string) =>
       actions.lane.removeCard(lane)(card)(draft);
     }));
   };
+
+export const removeLane = (lane: string) => {
+  store.set(produce(draft => {
+    actions.lane.remove(lane)(draft);
+  }));
+};
+
+export const toggleContext = (id: string | null) => {
+  store.set(produce(actions.active.collapse(id)));
+};

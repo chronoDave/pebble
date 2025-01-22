@@ -1,0 +1,26 @@
+@use 'mixin';
+
+.lane-contextmenu {
+  display: flex;
+  position: relative;
+
+  li[role="separator"] {
+    height: 1px;
+    background-color: var(--black);
+  }
+
+  > button:not([aria-expanded="true"]) ~ ul {
+    display: none;
+  }
+
+  > ul {
+    @include mixin.card;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background-color: var(--white);
+    padding: 0.5rem;
+    width: max-content;
+    max-width: 30ch;
+  }
+}

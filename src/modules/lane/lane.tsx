@@ -10,10 +10,12 @@ import selector, {
   createCard,
   moveLeft,
   moveRight,
-  removeCard
+  removeCard,
+  removeLane
 } from './lane.state';
 
 import './lane.scss';
+import LaneContextmenu from './lane-contextmenu/lane-contextmenu';
 
 export type LaneProps = {
   id: string;
@@ -48,18 +50,7 @@ const Lane: Component<LaneProps> = initial => {
                 <Icon id='plus' />
                 <span class='sr-only'>Add card</span>
               </button>
-              <button type='button' onclick={() => moveLeft(props.id)}>
-                <Icon id='arrowLeft' />
-                <span class='sr-only'>Move left</span>
-              </button>
-              <button type='button' onclick={() => moveRight(props.id)}>
-                <Icon id='arrowRight' />
-                <span class='sr-only'>Move right</span>
-              </button>
-              <button type='button' data-action='delete'>
-                <Icon id='trash' />
-                <span class='sr-only'>Remove lane</span>
-              </button>
+              <LaneContextmenu id={`lane-contextmenu-${props.id}`} />
             </div>
           </header>
           <ol
