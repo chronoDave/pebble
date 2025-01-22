@@ -1,24 +1,16 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
-
 import Icon from '../../../components/icon/icon';
 
-import selector, {
-  set,
-  moveLeft,
-  moveRight,
-  remove
-} from './lane-contextmenu.state';
+import selector, { set } from './card-contextmenu.state';
 
-export type LaneContextmenuProps = {
+export type CardContextMenuProps = {
   id: string;
-  board: string;
-  lane: string;
 };
 
-const LaneContextmenu: Component<LaneContextmenuProps> = initial => {
-  const component = new forgo.Component<LaneContextmenuProps>({
+const CardContextMenu: Component<CardContextMenuProps> = initial => {
+  const component = new forgo.Component<CardContextMenuProps>({
     render(props) {
       const expanded = selector.state(props.id);
 
@@ -42,10 +34,8 @@ const LaneContextmenu: Component<LaneContextmenuProps> = initial => {
             <li>
               <button
                 type="button"
-                onclick={() => moveLeft({
-                  board: props.board,
-                  lane: props.lane
-                })}
+                data-action="move"
+                data-direction="left"
               >
                 <Icon id='arrowLeft' />
                 <span>Move left</span>
@@ -54,26 +44,41 @@ const LaneContextmenu: Component<LaneContextmenuProps> = initial => {
             <li>
               <button
                 type="button"
-                onclick={() => moveRight({
-                  board: props.board,
-                  lane: props.lane
-                })}
+                data-action="move"
+                data-direction="right"
               >
                 <Icon id='arrowRight' />
                 <span>Move right</span>
               </button>
             </li>
+            <li>
+              <button
+                type="button"
+                data-action="move"
+                data-direction="up"
+              >
+                <Icon id='arrowUp' />
+                <span>Move up</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-action="move"
+                data-direction="down"
+              >
+                <Icon id='arrowDown' />
+                <span>Move down</span>
+              </button>
+            </li>
             <li role="separator"></li>
             <li>
-              <button 
+              <button
                 type="button"
-                onclick={() => remove({
-                  board: props.board,
-                  lane: props.lane
-                })}
+                data-action="remove"
               >
                 <Icon id='trash' />
-                <span>Remove lane</span>
+                <span>Remove card</span>
               </button>
             </li>
           </ul>
@@ -87,4 +92,4 @@ const LaneContextmenu: Component<LaneContextmenuProps> = initial => {
   return component;
 };
 
-export default LaneContextmenu;
+export default CardContextMenu;

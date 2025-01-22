@@ -16,6 +16,7 @@ import selector, {
 } from './card.state';
 import Task from './task/task';
 import Tag from './tag/tag';
+import CardContextMenu from './card-contextmenu/card-contextmenu';
 
 import './card.scss';
 
@@ -55,10 +56,7 @@ const Card: Component<CardProps> = initial => {
                 <Icon id='tag' />
                 <span class='sr-only'>Open tags collapse</span>
               </CollapseButton>
-              <CollapseButton id={id.actions}>
-                <Icon id='ellipsisVertical' />
-                <span class='sr-only'>Open actions collapse</span>
-              </CollapseButton>
+              <CardContextMenu id={`card-contextmenu-${props.id}`} />
             </div>
             {card.categories.length > 0 ? (
               <ul

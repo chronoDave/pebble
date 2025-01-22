@@ -7,14 +7,11 @@ import portal from '../../../components/portal/portal';
 import store from '../../../store/store';
 
 import DeleteBoard from './delete-board/delete-board';
-import SelectBoard from './select-board/select-board';
 import ModalInfo from './modal-info/modal-info';
 import selectImage from '../../../lib/input/image';
 
-import selector, { openDrawer } from './header.state';
+import selector, { openDrawer, setBackground } from './header.state';
 import BoardTitle from './board-title/board-title';
-import contentEditable from '../../../lib/contentEditable/contentEditable';
-import { setBackground } from '../../board/board.state';
 
 import './header.scss';
 

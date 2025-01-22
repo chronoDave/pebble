@@ -29,3 +29,8 @@ export const create = () => {
 export const openDrawer = () => store.set(produce(draft => {
   draft.active.drawer = true;
 }));
+
+export const setBackground = (board: string) =>
+  (background: string | null) => {
+    store.set(produce(actions.board.setBackground(board)(background)));
+  };

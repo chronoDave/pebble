@@ -1,9 +1,9 @@
 import type { Board, Lane } from '../../store/entities';
 
-import * as actions from '../../store/actions';
-
-import store, { selector } from '../../store/store';
 import { produce } from 'immer';
+
+import * as actions from '../../store/actions';
+import store, { selector } from '../../store/store';
 import uid from '../../lib/uid/uid';
 
 export default selector<string, Board | null>(
