@@ -1,6 +1,6 @@
 import { produce } from 'immer';
-import store, { selector } from '../../../store/store';
-import * as actions from '../../../store/actions';
+import store, { selector } from '../../store/store';
+import * as actions from '../../store/actions';
 
 export default selector(state => (id: string) => state?.active.collapse === id);
 

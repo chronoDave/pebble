@@ -35,3 +35,32 @@ export const removeCard = (lane: string) =>
       actions.lane.removeCard(lane)(card)(draft);
     }));
   };
+
+export const moveLeft = (id: { board: string; lane: string }) => {
+  const board = store.current.entity.board[id.board];
+
+  if (board.lanes.indexOf(id.lane) > 0) {
+    store.set(produce(draft => {
+      actions.lane.move(id.lane)({ n: -1 })(draft);
+      actions.active.collapse(null)(draft);
+    }));
+  }
+};
+
+export const moveRight = (id: { board: string; lane: string }) => {
+  const board = store.current.entity.board[id.board];
+
+  if (board.lanes.indexOf(id.lane) < board.lanes.length) {
+    store.set(produce(draft => {
+      actions.lane.move(id.lane)({ n: 1 })(draft);
+      actions.active.collapse(null)(draft);
+    }));
+  }
+};
+
+export const remove = (id: { board: string; lane: string }) => {
+  store.set(produce(draft => {
+    actions.board.removeLane(id)(draft);
+    actions.active.collapse(null)(draft);
+  }));
+};

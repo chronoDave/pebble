@@ -5,11 +5,14 @@ import * as forgo from 'forgo';
 import contentEditable from '../../lib/contentEditable/contentEditable';
 import Card from '../card/card';
 import Icon from '../../components/icon/icon';
-import LaneContextmenu from './lane-contextmenu/lane-contextmenu';
+import Contextmenu from '../../components/contextmenu/contextmenu';
 import selector, {
   setTitle,
   createCard,
-  removeCard
+  removeCard,
+  moveLeft,
+  moveRight,
+  remove
 } from './lane.state';
 
 import './lane.scss';
@@ -42,11 +45,45 @@ const Lane: Component<LaneProps> = initial => {
                 <Icon id='plus' />
                 <span class='sr-only'>Add card</span>
               </button>
-              <LaneContextmenu
-                id={`lane-contextmenu-${props.lane}`}
-                board={props.board}
-                lane={props.lane}
-              />
+              <Contextmenu id={`contextmenu-${lane.id}`}>
+                <li>
+                  <button
+                    type="button"
+                    onclick={() => moveLeft({
+                      board: props.board,
+                      lane: props.lane
+                    })}
+                  >
+                    <Icon id='arrowLeft' />
+                    <span>Move left</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onclick={() => moveRight({
+                      board: props.board,
+                      lane: props.lane
+                    })}
+                  >
+                    <Icon id='arrowRight' />
+                    <span>Move right</span>
+                  </button>
+                </li>
+                <li role="separator"></li>
+                <li>
+                  <button
+                    type="button"
+                    onclick={() => remove({
+                      board: props.board,
+                      lane: props.lane
+                    })}
+                  >
+                    <Icon id='trash' />
+                    <span>Remove lane</span>
+                  </button>
+                </li>
+              </Contextmenu>
             </div>
           </header>
           <ol
