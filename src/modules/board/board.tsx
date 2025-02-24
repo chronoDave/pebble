@@ -20,6 +20,8 @@ export type BoardProps = {
 };
 
 const Board: Component<BoardProps> = initial => {
+  let hovered: HTMLElement | null = null;
+
   const component = new forgo.Component<BoardProps>({
     render(props) {
       const board = selector.state(props.id);
@@ -63,12 +65,26 @@ const Board: Component<BoardProps> = initial => {
           }}
           ondragover={event => {
             event.preventDefault();
-            const dropzone = (event.target as HTMLElement).closest('[data-dropzone="true"]');
 
+            const dropzone = (event.target as HTMLElement).closest('[data-dropzone="true"]');
             if (event.dataTransfer) event.dataTransfer.dropEffect = dropzone ? 'move' : 'none';
+          }}
+          ondragenter={event => {
+            hovered = (event.target as HTMLElement).closest('[data-dropzone="true"]');
+            hovered?.setAttribute('data-hover', 'true');
+          }}
+          ondragleave={event => {
+            const el = (event.target as HTMLElement).closest('[data-dropzone="true"]');
+
+            if (el !== hovered) {
+              el?.setAttribute('data-hover', 'false');
+              hovered?.setAttribute('data-hover', 'false');
+              hovered = null;
+            }
           }}
           ondrop={event => {
             const dropzone = (event.target as HTMLElement).closest('[data-dropzone="true"]');
+            dropzone?.setAttribute('data-hover', 'false');
 
             if (dropzone) {
               event.preventDefault();
@@ -82,8 +98,6 @@ const Board: Component<BoardProps> = initial => {
                 card: (event.target as HTMLElement).closest('.card')?.id,
                 lane: (event.target as HTMLElement).closest('.lane')?.id
               };
-
-              console.log(from, to);
 
               if (typeof from.card === 'string') moveCard(from.card)(to);
               if (typeof from.lane === 'string') moveLane(from.lane)(to);
