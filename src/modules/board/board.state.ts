@@ -19,6 +19,11 @@ export const createLane = (board: string) => {
   }));
 };
 
+export const moveLane = (lane: string) =>
+  (to: { lane?: string; board?: string }) => {
+    store.set(produce(actions.lane.move(lane)(to)));
+  };
+
 export const moveCard = (card: string) =>
   (to: { card?: string; lane?: string }) => {
     store.set(produce(actions.card.move(card)(to)));

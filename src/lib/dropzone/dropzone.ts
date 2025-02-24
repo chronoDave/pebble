@@ -17,7 +17,7 @@ export default (fn: (raw: string) => void) => {
   document.body.addEventListener('dragover', event => {
     event.preventDefault();
 
-    if (event.dataTransfer) {
+    if (event.dataTransfer?.effectAllowed === 'uninitialized') {
       event.dataTransfer.dropEffect = hasJson(event.dataTransfer) ?
         'link' :
         'none';

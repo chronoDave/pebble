@@ -9,7 +9,8 @@ import selector, {
   createLane,
   moveCard,
   moveCardUp,
-  moveCardDown
+  moveCardDown,
+  moveLane
 } from './board.state';
 
 import './board.scss';
@@ -49,7 +50,7 @@ const Board: Component<BoardProps> = initial => {
             }
           }}
           ondragstart={event => {
-            const root = event.target as HTMLElement; // Guaranteed to be card element
+            const root = event.target as HTMLElement;
 
             if (event.dataTransfer) {
               event.dataTransfer.effectAllowed = 'move';
@@ -74,7 +75,7 @@ const Board: Component<BoardProps> = initial => {
 
               const from = {
                 card: document.querySelector('[data-grabbed="true"] .card')?.id,
-                lane: document.querySelector('[data-grabbed="true"] .lane')?.id
+                lane: document.querySelector('.lane > header[data-grabbed="true"]')?.closest('.lane')?.id
               };
 
               const to = {
@@ -82,7 +83,10 @@ const Board: Component<BoardProps> = initial => {
                 lane: (event.target as HTMLElement).closest('.lane')?.id
               };
 
+              console.log(from, to);
+
               if (typeof from.card === 'string') moveCard(from.card)(to);
+              if (typeof from.lane === 'string') moveLane(from.lane)(to);
             }
           }}
         >

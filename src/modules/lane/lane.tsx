@@ -30,7 +30,7 @@ const Lane: Component<LaneProps> = initial => {
       if (!lane) return null;
       return (
         <article id={lane.id} class='lane' data-size={lane.cards.length}>
-          <header>
+          <header draggable data-grabbed={false} data-dropzone>
             <hgroup>
               <h2
                 {...contentEditable}
