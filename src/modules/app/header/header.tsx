@@ -14,6 +14,7 @@ import selector, { openDrawer, setBackground } from './header.state';
 import BoardTitle from './board-title/board-title';
 
 import './header.scss';
+import download from '../../../lib/download';
 
 export type HeaderProps = {};
 
@@ -56,20 +57,10 @@ const Header: Component<HeaderProps> = () => {
               <Icon id='rotateLeft' />
               <span class='sr-only'>Undo</span>
             </button>
-            <button type='button' onclick={() => portal(<ModalInfo />)}>
-              <Icon id='circleInfo' />
-              <span class='sr-only'>Open info modal</span>
+            <button type='button' onclick={() => download({ name: 'data.json', data: JSON.stringify(store.current) })}>
+              <Icon id='download' />
+              <span class='sr-only'>Download data</span>
             </button>
-            {/* <button type='button' onclick={() => {
-              try {
-                void navigator.clipboard.writeText(compressToEncodedURIComponent(JSON.stringify(store.current)));
-              } catch (err) {
-                console.error(err);
-              }
-            }}>
-              <Icon id='share' />
-              <span class='sr-only'>Share</span>
-            </button> */}
           </div>
         </header>
       );
