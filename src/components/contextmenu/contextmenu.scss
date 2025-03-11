@@ -1,28 +1,27 @@
-@use 'mixin';
-
 .contextmenu {
   display: flex;
   position: relative;
 
   li[role="separator"] {
     height: 1px;
-    background-color: var(--black);
+    background-color: var(--white-alt);
   }
 
-  > button:not([aria-expanded="true"]) ~ ul {
+  > button:not([aria-expanded="true"]) ~ .card {
     display: none;
   }
 
-  > ul {
-    @include mixin.card;
+  > .card {
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 0;
-    background-color: var(--white);
-    padding: 0.5rem;
-    width: max-content;
     max-width: 30ch;
+    width: max-content;
     isolation: isolate;
     z-index: 10;
+
+    > ul li + li {
+      margin-top: 0.5rem;
+    }
   }
 }

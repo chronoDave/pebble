@@ -1,6 +1,7 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
+
 import Icon from '../icon/icon';
 
 import selector, { set } from './contextmenu.state';
@@ -20,21 +21,21 @@ const Contextmenu: Component<ContextmenuProps> = initial => {
         <div class="contextmenu">
           <button
             type="button"
-            aria-cotrols={props.id}
+            aria-controls={props.id}
             aria-expanded={expanded}
             onclick={() => set(expanded ? null : props.id)}
           >
             <Icon id='ellipsisVertical' />
           </button>
-          <ul
-            id={props.id}
+          <div
+            class='card'
             onclick={event => {
               const button = (event.target as HTMLElement | null)?.closest('button');
               if (button) set(null);
             }}
           >
             {props.children}
-          </ul>
+          </div>
         </div>
       );
     }
