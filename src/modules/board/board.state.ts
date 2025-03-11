@@ -4,7 +4,7 @@ import { produce } from 'immer';
 
 import * as actions from '../../store/actions';
 import store, { selector } from '../../store/store';
-import uid from '../../lib/uid/uid';
+import uid from '../../lib/string/uid';
 
 export default selector<string, Board | null>(
   state => id => state?.entity.board[id] ?? null

@@ -3,7 +3,7 @@ import type { Card, Lane } from '../../store/entities';
 
 import store, { selector } from '../../store/store';
 import * as actions from '../../store/actions';
-import uid from '../../lib/uid/uid';
+import uid from '../../lib/string/uid';
 
 export default selector<string, Lane | null>(
   state => id => state?.entity.lane[id] ?? null

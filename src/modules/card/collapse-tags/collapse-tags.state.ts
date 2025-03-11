@@ -3,7 +3,7 @@ import { produce } from 'immer';
 import store, { selector } from '../../../store/store';
 import * as actions from '../../../store/actions';
 import type { Category } from '../../../store/entities';
-import uid from '../../../lib/uid/uid';
+import uid from '../../../lib/string/uid';
 
 export default selector(state =>
   (id: string) =>

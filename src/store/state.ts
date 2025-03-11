@@ -1,5 +1,5 @@
 import * as r from 'runtypes';
-import uid from '../lib/uid/uid';
+import uid from '../lib/string/uid';
 
 import {
   card,

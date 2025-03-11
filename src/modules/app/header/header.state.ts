@@ -2,7 +2,7 @@ import type { Board, Lane } from '../../../store/entities';
 
 import { produce } from 'immer';
 import * as actions from '../../../store/actions';
-import uid from '../../../lib/uid/uid';
+import uid from '../../../lib/string/uid';
 import store, { selector } from '../../../store/store';
 
 export default selector(state => () => state?.active.board ?? null);

@@ -3,7 +3,7 @@ import type { Board } from '../../store/entities';
 import { produce } from 'immer';
 
 import store, { selector } from '../../store/store';
-import uid from '../../lib/uid/uid';
+import uid from '../../lib/string/uid';
 
 export default selector(state => () => !!state?.active.drawer);
 

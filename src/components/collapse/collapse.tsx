@@ -1,7 +1,7 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
-import cx from '../../lib/cx/cx';
+import cx from '../../lib/string/cx';
 
 import selector from './collapse.state';
 

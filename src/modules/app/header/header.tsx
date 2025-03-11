@@ -12,9 +12,9 @@ import selectImage from '../../../lib/input/image';
 
 import selector, { openDrawer, setBackground } from './header.state';
 import BoardTitle from './board-title/board-title';
+import download from '../../../lib/input/download';
 
 import './header.scss';
-import download from '../../../lib/download';
 
 export type HeaderProps = {};
 
