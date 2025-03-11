@@ -2,7 +2,7 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
 import colour from '../../../lib/input/colour';
-import Icon from '../../../components/icon/icon';
+import Icon from '../../icon/icon';
 import Tag from '../tag/tag';
 import selector, {
   createCategory,
@@ -10,7 +10,7 @@ import selector, {
   toggleCategory,
   updateCategoryColour
 } from './collapse-tags.state';
-import Collapse from '../../../components/collapse/collapse';
+import Collapse from '../../collapse/collapse';
 
 import './collapse-tags.scss';
 

@@ -1,7 +1,7 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
-import Modal from '../../../../components/modal/modal';
+import Modal from '../../../modal/modal';
 
 export type ModalInfoProps = {};
 

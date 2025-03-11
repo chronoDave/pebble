@@ -1,7 +1,7 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
-import Icon from '../../components/icon/icon';
+import Icon from '../icon/icon';
 import contentEditable from '../../lib/contentEditable/contentEditable';
 import selector, { setTaskTitle } from './task.state';
 

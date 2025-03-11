@@ -2,17 +2,15 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
 
-import Icon from '../../../components/icon/icon';
-import portal from '../../../components/portal/portal';
+import Icon from '../../icon/icon';
 import store from '../../../store/store';
 
-import DeleteBoard from './delete-board/delete-board';
-import ModalInfo from './modal-info/modal-info';
 import selectImage from '../../../lib/input/image';
-
-import selector, { openDrawer, setBackground } from './header.state';
-import BoardTitle from './board-title/board-title';
 import download from '../../../lib/input/download';
+
+import DeleteBoard from './delete-board/delete-board';
+import BoardTitle from './board-title/board-title';
+import selector, { openDrawer, setBackground } from './header.state';
 
 import './header.scss';
 

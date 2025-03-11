@@ -2,8 +2,8 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
 
-import Contextmenu from '../../components/contextmenu/contextmenu';
-import Icon from '../../components/icon/icon';
+import Contextmenu from '../contextmenu/contextmenu';
+import Icon from '../icon/icon';
 
 export type ContextmenuCardProps = {
   id: string;

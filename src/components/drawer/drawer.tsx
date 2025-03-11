@@ -3,7 +3,7 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 import * as forgo from 'forgo';
 
 import selector, { addBoard, close } from './drawer.state';
-import Icon from '../../components/icon/icon';
+import Icon from '../icon/icon';
 import ListBoard from '../list-board/list-board';
 
 import './drawer.scss';

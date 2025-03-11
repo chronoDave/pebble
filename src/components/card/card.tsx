@@ -2,9 +2,9 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
 import contentEditable from '../../lib/contentEditable/contentEditable';
-import Icon from '../../components/icon/icon';
+import Icon from '../icon/icon';
 import CollapseTags from './collapse-tags/collapse-tags';
-import CollapseButton from '../../components/collapse-button/collapse-button';
+import CollapseButton from '../collapse-button/collapse-button';
 import Contextmenu from './card.contextmenu';
 import Tasklist from '../tasklist/tasklist';
 import selector, {

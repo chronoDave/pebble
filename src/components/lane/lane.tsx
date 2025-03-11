@@ -4,8 +4,8 @@ import * as forgo from 'forgo';
 
 import contentEditable from '../../lib/contentEditable/contentEditable';
 import Card from '../card/card';
-import Icon from '../../components/icon/icon';
-import Contextmenu from '../../components/contextmenu/contextmenu';
+import Icon from '../icon/icon';
+import Contextmenu from '../contextmenu/contextmenu';
 import selector, {
   setTitle,
   createCard,

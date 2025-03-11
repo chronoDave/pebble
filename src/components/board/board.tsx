@@ -3,7 +3,7 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 import * as forgo from 'forgo';
 
 import Lane from '../lane/lane';
-import Icon from '../../components/icon/icon';
+import Icon from '../icon/icon';
 
 import selector, {
   createLane,

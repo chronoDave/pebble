@@ -1,6 +1,6 @@
 import * as forgo from 'forgo';
 
-import App from './modules/app/app';
+import App from './components/app/app';
 import createDragFocus from './lib/dragFocus/dragFocus';
 
 import './index.scss';
