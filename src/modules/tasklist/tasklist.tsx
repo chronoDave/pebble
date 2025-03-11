@@ -22,7 +22,7 @@ const Tasklist: Component<TasklistProps> = initial => {
     render(props) {
       const card = selector.state(props.id);
 
-      if (!card || card.tasks.length === 0) return null;
+      if (!card) return null;
       return (
         <div
           id={`tasklist-${card.id}`}
@@ -47,13 +47,15 @@ const Tasklist: Component<TasklistProps> = initial => {
             }
           }}
         >
-          <ol class="unstyled">
-            {card.tasks.map(task => (
-              <li key={task}>
-                <Task id={task} />
-              </li>
-            ))}
-          </ol>
+          {card.tasks.length > 0 ? (
+            <ol class="unstyled">
+              {card.tasks.map(task => (
+                <li key={task}>
+                  <Task id={task} />
+                </li>
+              ))}
+            </ol>
+          ) : null}
           <button type='button' data-action='create'>
             <Icon id='plus' />
             <span>Add task</span>
