@@ -19,6 +19,11 @@ export const setDone = (id: string) =>
       draft.entity.task[id].done = done;
     };
 
+export const toggleDone = (id: string) =>
+  (draft: Draft<State>) => {
+    draft.entity.task[id].done = !draft.entity.task[id].done;
+  };
+
 export const remove = (id: string) =>
   (draft: Draft<State>) => {
     delete draft.entity.task[id];

@@ -1,9 +1,9 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
+import Icon from '../../components/icon/icon';
+import contentEditable from '../../lib/contentEditable/contentEditable';
 import selector, { setTaskTitle } from './task.state';
-import Icon from '../../../components/icon/icon';
-import contentEditable from '../../../lib/contentEditable/contentEditable';
 
 import './task.scss';
 
@@ -21,11 +21,10 @@ const Task: Component<TaskProps> = initial => {
         <div
           id={task.id}
           class='task'
-          data-done={!!task.done}
           aria-live='polite'
         >
-          <button type='button' data-action='update'>
-            {task.done ? <Icon id='circleDot' /> : <Icon id='circle' />}
+          <button type='button' data-action='toggle'>
+            {task.done ? <Icon id='circleCheck' /> : <Icon id='circle' />}
             <span class='sr-only'>{task.done ? 'Mark task as incomplete' : 'Mark task as complete'}</span>
           </button>
           {task.done ? <s>{task.title}</s> : (

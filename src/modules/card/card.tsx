@@ -6,15 +6,12 @@ import Icon from '../../components/icon/icon';
 import CollapseTags from './collapse-tags/collapse-tags';
 import CollapseButton from '../../components/collapse-button/collapse-button';
 import Contextmenu from '../../components/contextmenu/contextmenu';
+import Tasklist from '../tasklist/tasklist';
 import selector, {
   setTitle,
   setDescription,
-  removeTask,
-  removeCategory,
-  createTask,
-  setTaskDone
+  removeCategory
 } from './card.state';
-import Task from './task/task';
 import Tag from './tag/tag';
 
 import './card.scss';
@@ -144,42 +141,7 @@ const Card: Component<CardProps> = initial => {
           >
             {card.description ?? 'New description'}
           </p>
-          <div
-            class='tasks'
-            onclick={event => {
-              const button = (event.target as HTMLElement | null)?.closest('button');
-              const task = button?.closest<HTMLElement>('.task');
-
-              if (button?.dataset.action === 'create') {
-                createTask(card.id);
-                event.stopPropagation();
-              }
-
-              if (button?.dataset.action === 'update' && task) {
-                setTaskDone(task.id)(task.dataset.done !== 'true');
-                event.stopPropagation();
-              }
-
-              if (button?.dataset.action === 'delete' && task) {
-                removeTask(card.id)(task.id);
-                event.stopPropagation();
-              }
-            }}
-          >
-            {card.tasks.length > 0 ? (
-              <ol>
-                {card.tasks.map(task => (
-                  <li key={task}>
-                    <Task id={task} />
-                  </li>
-                ))}
-              </ol>
-            ) : null}
-            <button type='button' data-action='create'>
-              <Icon id='plus' />
-              <span>Add task</span>
-            </button>
-          </div>
+          <Tasklist id={card.id} />
         </article>
       );
     }

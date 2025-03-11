@@ -42,17 +42,4 @@
     margin: 0.5rem 0;
     width: 100%;
   }
-
-  .tasks {
-    border-top: 1px solid var(--white-alt);
-    padding-top: 0.5rem;
-
-    ol {
-      margin-bottom: 0.5rem;
-
-      li + li {
-        margin-top: 0.5rem;
-      }
-    }
-  }
 }
