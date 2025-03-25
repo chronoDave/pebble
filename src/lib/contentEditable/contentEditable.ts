@@ -66,6 +66,14 @@ export type ContentEditable = {
   onfocus: (event: FocusEvent) => void;
 };
 
+const modifySelection = (event: KeyboardEvent) => (direction: 'forward' | 'backward') => {
+  const selection = window.getSelection();
+  if (!selection) return;
+
+  event.preventDefault();
+  selection.modify(event.shiftKey ? 'extend' : 'move', direction, event.ctrlKey ? 'word' : 'character');
+};
+
 const contentEditable: ContentEditable = {
   contenteditable: true,
   onfocus: event => {
@@ -94,6 +102,9 @@ const contentEditable: ContentEditable = {
       event.preventDefault();
       (event.currentTarget as HTMLElement | null)?.blur();
     }
+
+    if (event.key === 'ArrowRight') modifySelection(event)('forward');
+    if (event.key === 'ArrowLeft') modifySelection(event)('backward');
   },
   onkeyup: event => {
     const target = event.currentTarget as HTMLElement | null;
