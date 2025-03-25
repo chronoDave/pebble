@@ -33,7 +33,7 @@
 
     > li {
       display: flex;
-      min-width: min(calc(100vw - 1rem), math.pxToRem(320));
+      min-width: 40ch
     }
   }
 

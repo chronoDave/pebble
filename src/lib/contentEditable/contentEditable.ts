@@ -64,6 +64,7 @@ export type ContentEditable = {
   onkeyup: (event: KeyboardEvent) => void;
   onpaste: (event: ClipboardEvent) => void;
   onfocus: (event: FocusEvent) => void;
+  onclick: (event: MouseEvent) => void;
 };
 
 const modifySelection = (event: KeyboardEvent) => (direction: 'forward' | 'backward') => {
@@ -90,6 +91,30 @@ const contentEditable: ContentEditable = {
     selection?.addRange(range);
 
     root.focus();
+  },
+  onclick: event => {
+    const root = event.currentTarget as HTMLElement;
+    const text = root.childNodes[0].textContent;
+    if (text === null) return;
+
+    for (let i = 0; i < text.length; i += 1) {
+      const range = document.createRange();
+      range.setStart(root.childNodes[0], i);
+      range.setEnd(root.childNodes[0], i + 1);
+      const box = range.getBoundingClientRect();
+
+      if (
+        event.clientX > box.x && event.clientX < box.x + box.width &&
+        event.clientY > box.y && event.clientY < box.y + box.height
+      ) {
+        const selection = window.getSelection();
+        range.setEnd(root.childNodes[0], i);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+
+        break;
+      }
+    }
   },
   onbeforeinput: event => {
     if (!(PLAIN_TYPES as string[]).includes(event.inputType)) {
