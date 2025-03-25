@@ -1,6 +1,5 @@
-import type { Draft} from 'immer';
-import type { Category } from '../entities';
-import type { State } from '../state';
+import type { Draft } from 'immer';
+import type { State, Category } from '../schema';
 
 import Colour from '../../lib/colour/colour';
 

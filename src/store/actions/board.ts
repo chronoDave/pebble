@@ -1,7 +1,5 @@
-import type { State } from '../state';
-import type { Board } from '../entities';
-
 import type { Draft } from 'immer';
+import type { State, Board } from '../schema';
 
 import * as lane from './lane';
 

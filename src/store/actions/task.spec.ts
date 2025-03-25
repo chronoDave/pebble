@@ -1,4 +1,4 @@
-import type { Task } from '../entities';
+import type { Task } from '../schema';
 
 import { produce } from 'immer';
 import test from 'tape';

@@ -1,11 +1,14 @@
-import Store from '../lib/store/store';
-import createSelector from '../lib/selector/selector';
-import state, { schema } from './state';
-import Storage from '../lib/storage/storage';
-import createDropzone from '../lib/dropzone/dropzone';
 import { produce } from 'immer';
 
-const storage = new Storage('state', schema);
+import Store from '../lib/store/store';
+import createSelector from '../lib/selector/selector';
+import Storage from '../lib/storage/storage';
+import createDropzone from '../lib/dropzone/dropzone';
+
+import state from './state';
+import * as schema from './schema';
+
+const storage = new Storage('state', schema.state);
 const store = new Store(storage.read() ?? state, {
   subscribers: [
     ({ previous, current }) => {
@@ -38,7 +41,7 @@ document.addEventListener('keyup', event => {
 createDropzone(raw => {
   try {
     const json = JSON.parse(raw);
-    schema.check(json);
+    schema.state.check(json);
     store.set(() => json);
   } catch (err) {
     console.error(err);

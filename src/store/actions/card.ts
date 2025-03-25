@@ -1,6 +1,5 @@
-import type { Card } from '../entities';
-import type { State } from '../state';
 import type { Draft } from 'immer';
+import type { Card, State } from '../schema';
 
 import clamp from '../../lib/math/clamp';
 

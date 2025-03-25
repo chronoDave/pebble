@@ -1,4 +1,4 @@
-import type { State } from '../state';
+import type { State } from '../schema';
 import type { Draft } from 'immer';
 
 const set = (key: keyof State['active']) =>

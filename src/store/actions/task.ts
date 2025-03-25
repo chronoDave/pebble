@@ -1,6 +1,5 @@
 import type { Draft } from 'immer';
-import type { Task } from '../entities';
-import type { State } from '../state';
+import type { State, Task } from '../schema';
 
 export const create = (task: Task) =>
   (draft: Draft<State>) => {

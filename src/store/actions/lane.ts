@@ -1,6 +1,5 @@
-import type { State } from '../state';
-import type { Lane } from '../entities';
 import type { Draft} from 'immer';
+import type { State, Lane } from '../schema';
 
 import clamp from '../../lib/math/clamp';
 
