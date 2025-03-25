@@ -1,29 +1,33 @@
-import type { Card, Task } from '../../store/entities';
-
 import { produce } from 'immer';
 
 import store, { selector } from '../../store/store';
 import * as actions from '../../store/actions';
 import uid from '../../lib/string/uid';
 
-export default selector<string, Card | null>(
-  state => id => state?.entity.card[id] ?? null
+export default selector<string, string[]>(
+  state => id => Object.values(state?.entity.task ?? {})
+    .reduce<string[]>((acc, cur) => {
+      if (cur.card === id) acc.push(cur.id);
+
+      return acc;
+    }, []),
+  ({ previous, current }) =>
+    Object.keys(previous?.entity.task ?? {}).length !==
+    Object.keys(current.entity.task).length
 );
 
-export const createTask = (card: string) => {
-  const task: Task = { id: uid(), title: 'New task' };
-
-  store.set(produce(draft => {
-    actions.card.addTask(card)(task.id)(draft);
-    actions.task.create(task)(draft);
-  }));
+export const create = (card: string) => {
+  store.set(produce(actions.task.create({
+    id: uid(),
+    card,
+    title: 'New task'
+  })));
 };
 
-export const toggleTaskDone = (task: string) => {
-  store.set(produce(actions.task.toggleDone(task)));
+export const done = (task: string) => {
+  store.set(produce(actions.task.done(task)()));
 };
 
-export const removeTask = (card: string) =>
-  (task: string) => {
-    store.set(produce(actions.card.removeTask(card)(task)));
-  };
+export const remove = (task: string) => {
+  store.set(produce(actions.task.remove(task)));
+};

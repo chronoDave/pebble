@@ -7,22 +7,19 @@ export const create = (task: Task) =>
     draft.entity.task[task.id] = task;
   };
 
-export const setTitle = (id: string) =>
+export const title = (id: string) =>
   (title: string | null) =>
     (draft: Draft<State>) => {
       draft.entity.task[id].title = title;
     };
 
-export const setDone = (id: string) =>
-  (done: boolean) =>
+export const done = (id: string) =>
+  (done?: boolean) =>
     (draft: Draft<State>) => {
-      draft.entity.task[id].done = done;
+      draft.entity.task[id].done = typeof done === 'boolean' ?
+        done :
+        !draft.entity.task[id].done;
     };
-
-export const toggleDone = (id: string) =>
-  (draft: Draft<State>) => {
-    draft.entity.task[id].done = !draft.entity.task[id].done;
-  };
 
 export const remove = (id: string) =>
   (draft: Draft<State>) => {

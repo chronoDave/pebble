@@ -1,63 +1,69 @@
-// import type { Task } from '../entities';
+import type { Task } from '../entities';
 
-// import { produce } from 'immer';
-// import test from 'tape';
+import { produce } from 'immer';
+import test from 'tape';
 
-// import Store from '../../lib/store/store';
-// import uid from '../../lib/uid/uid';
-// import state from '../state';
+import Store from '../../lib/store/store';
+import uid from '../../lib/string/uid';
+import state from '../state';
 
-// import {
-//   create,
-//   setTitle,
-//   setDone,
-//   remove
-// } from './task';
+import {
+  create,
+  title,
+  done,
+  remove
+} from './task';
 
-// test('[task.create] creates task', t => {
-//   const store = new Store(state);
-//   const task: Task = { id: uid() };
+test('[task.create] creates task', t => {
+  const store = new Store(state);
+  const task: Task = { id: uid(), card: uid() };
 
-//   store.set(produce(create(task)));
+  store.set(produce(create(task)));
 
-//   t.deepEqual(store.current.entity.task[task.id], task, 'creates task');
+  t.deepEqual(store.current.entity.task[task.id], task, 'creates task');
 
-//   t.end();
-// });
+  t.end();
+});
 
-// test('[task.setTitle] set task title', t => {
-//   const store = new Store(state);
-//   const task: Task = { id: uid() };
+test('[task.setTitle] set task title', t => {
+  const store = new Store(state);
+  const task: Task = { id: uid(), card: uid() };
 
-//   store.set(produce(create(task)));
-//   store.set(produce(setTitle(task.id)('2')));
+  store.set(produce(create(task)));
+  store.set(produce(title(task.id)('2')));
 
-//   t.equal(store.current.entity.task[task.id].title, '2', 'sets task title');
+  t.equal(store.current.entity.task[task.id].title, '2', 'sets task title');
 
-//   t.end();
-// });
+  t.end();
+});
 
-// test('[task.setDone] set task done', t => {
-//   const store = new Store(state);
-//   const task: Task = { id: uid() };
+test('[task.setDone] set task done', t => {
+  const store = new Store(state);
+  const task: Task = { id: uid(), card: uid() };
 
-//   store.set(produce(create(task)));
-//   store.set(produce(setDone(task.id)(true)));
+  store.set(produce(create(task)));
 
-//   t.true(store.current.entity.task[task.id].done, 'sets task done');
+  store.set(produce(done(task.id)(true)));
+  t.true(store.current.entity.task[task.id].done, 'true');
 
-//   t.end();
-// });
+  store.set(produce(done(task.id)(false)));
+  t.false(store.current.entity.task[task.id].done, 'false');
 
-// test('[task.remove] removes task', t => {
-//   const store = new Store(state);
-//   const task: Task = { id: uid() };
+  store.set(produce(done(task.id)()));
+  t.true(store.current.entity.task[task.id].done, 'invert');
 
-//   store.set(produce(create(task)));
-//   t.true(store.current.entity.task[task.id], 'has task');
-//   store.set(produce(remove(task.id)));
-//   t.false(store.current.entity.task[task.id], 'does not have task');
+  t.end();
+});
 
-//   t.end();
-// });
+test('[task.remove] removes task', t => {
+  const store = new Store(state);
+  const task: Task = { id: uid(), card: uid() };
+
+  store.set(produce(create(task)));
+  t.true(store.current.entity.task[task.id], 'has task');
+  store.set(produce(remove(task.id)));
+  t.false(store.current.entity.task[task.id], 'does not have task');
+
+  t.end();
+});
 

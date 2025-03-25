@@ -6,9 +6,9 @@ import Task from '../task/task';
 import Icon from '../icon/icon';
 
 import selector, {
-  createTask,
-  toggleTaskDone,
-  removeTask
+  create,
+  done,
+  remove
 } from './tasklist.state';
 
 import './tasklist.scss';
@@ -20,36 +20,35 @@ export type TasklistProps = {
 const Tasklist: Component<TasklistProps> = initial => {
   const component = new forgo.Component<TasklistProps>({
     render(props) {
-      const card = selector.state(props.id);
+      const tasks = selector.state(props.id);
 
-      if (!card) return null;
       return (
         <div
-          id={`tasklist-${card.id}`}
+          id={`tasklist-${props.id}`}
           class='tasklist'
           onclick={event => {
             const button = (event.target as HTMLElement | null)?.closest('button');
             const task = button?.closest<HTMLElement>('.task');
 
             if (button?.dataset.action === 'create') {
-              createTask(card.id);
+              create(props.id);
               event.stopPropagation();
             }
 
             if (task && button?.dataset.action === 'toggle') {
-              toggleTaskDone(task.id);
+              done(task.id);
               event.stopPropagation();
             }
 
             if (task && button?.dataset.action === 'delete') {
-              removeTask(card.id)(task.id);
+              remove(task.id);
               event.stopPropagation();
             }
           }}
         >
-          {card.tasks.length > 0 ? (
+          {tasks.length > 0 ? (
             <ol class="unstyled">
-              {card.tasks.map(task => (
+              {tasks.map(task => (
                 <li key={task}>
                   <Task id={task} />
                 </li>

@@ -14,7 +14,8 @@ export type Category = r.Static<typeof category>;
 export const task = r.Record({
   id: r.String,
   done: r.Boolean.optional(),
-  title: r.String.Or(r.Null).optional()
+  title: r.String.Or(r.Null).optional(),
+  card: r.String
 });
 
 export type Task = r.Static<typeof task>;
@@ -23,7 +24,6 @@ export const card = r.Record({
   id: r.String,
   title: r.String.Or(r.Null).optional(),
   description: r.String.Or(r.Null).optional(),
-  tasks: r.Array(r.String), // Foreign keys
   categories: r.Array(r.String) // Foreign keys
 });
 
