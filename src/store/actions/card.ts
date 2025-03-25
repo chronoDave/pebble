@@ -73,7 +73,9 @@ export const move = (id: string) =>
           draft.entity.lane[lane.id].cards.length,
           typeof to.card === 'string' ?
             draft.entity.lane[lane.id].cards.indexOf(to.card) :
-            i + (to.n ?? 0)
+            typeof to.n === 'number' ?
+              i + to.n :
+              lane.cards.length
         ); // New index
 
         draft.entity.lane[from.id].cards.splice(i, 1); // Remove current card

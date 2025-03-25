@@ -20,8 +20,6 @@ export type BoardProps = {
 };
 
 const Board: Component<BoardProps> = initial => {
-  let hovered: HTMLElement | null = null;
-
   const component = new forgo.Component<BoardProps>({
     render(props) {
       const board = selector.state(props.id);
@@ -61,31 +59,48 @@ const Board: Component<BoardProps> = initial => {
             }
           }}
           ondragend={event => {
-            (event.target as HTMLElement).setAttribute('data-grabbed', 'false');
+            (event.target as HTMLElement).removeAttribute('data-grabbed');
           }}
           ondragover={event => {
+            const type = document.querySelector<HTMLElement>('[data-grabbed="true"]')?.dataset.draggable ?? null;
+            if (type === null) return;
+
             event.preventDefault();
 
-            const dropzone = (event.target as HTMLElement).closest('[data-dropzone="true"]');
+            const dropzone = (event.target as HTMLElement).closest(`[data-dropzone="${type}"]`);
             if (event.dataTransfer) event.dataTransfer.dropEffect = dropzone ? 'move' : 'none';
           }}
           ondragenter={event => {
-            hovered = (event.target as HTMLElement).closest('[data-dropzone="true"]');
-            hovered?.setAttribute('data-hover', 'true');
+            const type = document.querySelector<HTMLElement>('[data-grabbed="true"]')?.dataset.draggable ?? null;
+            if (type === null) return;
+
+            const root = event.target as HTMLElement;
+            const dropzone = root.closest(`[data-dropzone="${type}"]`);
+
+            if (dropzone) {
+              document.querySelector('[data-hover="true"]')?.removeAttribute('data-hover');
+              root.closest('[draggable="true"]')?.setAttribute('data-hover', 'true');
+            }
           }}
           ondragleave={event => {
-            const el = (event.target as HTMLElement).closest('[data-dropzone="true"]');
+            const type = document.querySelector<HTMLElement>('[data-grabbed="true"]')?.dataset.draggable ?? null;
+            if (type === null) return;
 
-            if (el !== hovered) {
-              el?.setAttribute('data-hover', 'false');
-              hovered?.setAttribute('data-hover', 'false');
-              hovered = null;
+            const root = event.target as HTMLElement;
+            const dropzone = root.closest(`[data-dropzone="${type}"]`);
+            const active = document.querySelector('[data-hover="true"]');
+          
+            if (!dropzone || root.closest('[draggable="true"]') !== active) {
+              active?.removeAttribute('data-hover');
             }
           }}
           ondrop={event => {
-            const dropzone = (event.target as HTMLElement).closest('[data-dropzone="true"]');
-            dropzone?.setAttribute('data-hover', 'false');
+            const type = document.querySelector<HTMLElement>('[data-grabbed="true"]')?.dataset.draggable ?? null;
+            if (type === null) return;
 
+            const dropzone = (event.target as HTMLElement).closest(`[data-dropzone="${type}"]`);
+            document.querySelector('[data-hover="true"]')?.removeAttribute('data-hover');
+            
             if (dropzone) {
               event.preventDefault();
 

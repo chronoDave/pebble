@@ -30,7 +30,7 @@ const Lane: Component<LaneProps> = initial => {
       if (!lane) return null;
       return (
         <article id={lane.id} class='lane' data-size={lane.cards.length}>
-          <header draggable data-grabbed={false} data-dropzone>
+          <header draggable data-dropzone="lane" data-draggable="lane">
             <hgroup>
               <h2
                 {...contentEditable}
@@ -88,6 +88,7 @@ const Lane: Component<LaneProps> = initial => {
           </header>
           <ol
             class="unstyled"
+            data-dropzone="card"
             onclick={event => {
               const button = (event.target as HTMLElement | null)?.closest('button');
               const card = button?.closest<HTMLElement>('.card');
@@ -98,16 +99,11 @@ const Lane: Component<LaneProps> = initial => {
             }}
           >
             {lane.cards.map(card => (
-              <li
-                key={card}
-                draggable
-                data-grabbed={false}
-                data-dropzone
-              >
+              <li key={card} draggable data-draggable="card">
                 <Card id={card} />
               </li>
             ))}
-            <li data-dropzone>
+            <li>
               <button
                 type='button'
                 onclick={() => createCard(props.lane)('end')}
