@@ -5,11 +5,34 @@ import createSelector from '../lib/selector/selector';
 import Storage from '../lib/storage/storage';
 import createDropzone from '../lib/dropzone/dropzone';
 
-import state from './state';
 import * as schema from './schema';
 
 const storage = new Storage('state', schema.state);
-const store = new Store(storage.read() ?? state, {
+const store = new Store(storage.read() ?? {
+  entity: {
+    board: {},
+    lane: {},
+    card: {},
+    task: {},
+    category: {}
+  },
+  list: {
+    board: {
+      lane: {}
+    },
+    lane: {
+      card: {}
+    },
+    card: {
+      task: {}
+    }
+  },
+  active: {
+    board: null,
+    drawer: null,
+    collapse: null
+  }
+}, {
   subscribers: [
     ({ previous, current }) => {
       if (typeof current.active.board === 'string') {

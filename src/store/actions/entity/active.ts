@@ -1,8 +1,8 @@
-import type { State } from '../schema';
 import type { Draft } from 'immer';
+import type { State } from '../../schema';
 
-const set = (key: keyof State['active']) =>
-  (id: string | null) =>
+export const set = (key: keyof State['active']) =>
+  (id?: string) =>
     (draft: Draft<State>) => {
       if (typeof id === 'string') {
         draft.active[key] = id;
@@ -13,3 +13,4 @@ const set = (key: keyof State['active']) =>
 
 export const board = set('board');
 export const collapse = set('collapse');
+export const drawer = set('drawer');
