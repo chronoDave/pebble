@@ -1,3 +1,5 @@
+import type { State } from './schema';
+
 import { produce } from 'immer';
 
 import Store from '../lib/store/store';
@@ -5,10 +7,11 @@ import createSelector from '../lib/selector/selector';
 import Storage from '../lib/storage/storage';
 import createDropzone from '../lib/dropzone/dropzone';
 
-import * as schema from './schema';
+import * as active from './actions/active';
+import { state as schema } from './schema';
 
-const storage = new Storage('state', schema.state);
-const store = new Store(storage.read() ?? {
+const storage = new Storage('state', schema);
+const store = new Store<State>(storage.read() ?? {
   entity: {
     board: {},
     lane: {},
@@ -16,22 +19,7 @@ const store = new Store(storage.read() ?? {
     task: {},
     category: {}
   },
-  list: {
-    board: {
-      lane: {}
-    },
-    lane: {
-      card: {}
-    },
-    card: {
-      task: {}
-    }
-  },
-  active: {
-    board: null,
-    drawer: null,
-    collapse: null
-  }
+  active: {}
 }, {
   subscribers: [
     ({ previous, current }) => {
@@ -54,17 +42,13 @@ document.addEventListener('keyup', event => {
 });
 
 document.addEventListener('keyup', event => {
-  if (event.key === 'Escape') {
-    store.set(produce(draft => {
-      draft.active.drawer = false;
-    }));
-  }
+  if (event.key === 'Escape') store.set(produce(active.drawer()));
 });
 
 createDropzone(raw => {
   try {
     const json = JSON.parse(raw);
-    schema.state.check(json);
+    schema.check(json);
     store.set(() => json);
   } catch (err) {
     console.error(err);

@@ -8,7 +8,7 @@ import * as actions from './board';
 
 test('[board.set] sets board', t => {
   const store = createStore();
-  const board: Board = { id: 'a' };
+  const board: Board = { id: 'a', lanes: [], categories: [] };
 
   store.set(produce(actions.set(board)));
   t.deepEqual(store.current.entity.board[board.id], board, 'sets board');
@@ -27,7 +27,7 @@ test('[board.create] creates new board', t => {
 
 test('[board.title] updates title', t => {
   const store = createStore();
-  const board: Board = { id: 'a', title: 'title' };
+  const board: Board = { id: 'a', title: 'title', lanes: [], categories: [] };
   store.set(produce(actions.set(board)));
 
   store.set(produce(actions.title(board.id)('b')));
@@ -41,7 +41,7 @@ test('[board.title] updates title', t => {
 
 test('[board.background] updates background', t => {
   const store = createStore();
-  const board: Board = { id: 'a', background: 'background' };
+  const board: Board = { id: 'a', background: 'background', lanes: [], categories: [] };
   store.set(produce(actions.set(board)));
 
   store.set(produce(actions.background(board.id)('b')));
@@ -55,7 +55,7 @@ test('[board.background] updates background', t => {
 
 test('[board.remove] removes board', t => {
   const store = createStore();
-  const board: Board = { id: 'a' };
+  const board: Board = { id: 'a', lanes: [], categories: [] };
   store.set(produce(actions.set(board)));
 
   store.set(produce(actions.remove(board.id)));

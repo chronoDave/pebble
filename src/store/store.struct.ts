@@ -10,11 +10,5 @@ export default () => new Store<State>({
     task: {},
     category: {}
   },
-  list: {
-    categories: {},
-    tasks: {},
-    cards: {},
-    lanes: {}
-  },
   active: {}
 });

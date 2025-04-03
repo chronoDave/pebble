@@ -22,14 +22,17 @@ export type Task = r.Static<typeof task>;
 export const card = r.Record({
   id: r.String,
   title: r.String.optional(),
-  description: r.String.optional()
+  description: r.String.optional(),
+  tasks: r.Array(r.String),
+  categories: r.Array(r.String)
 });
 
 export type Card = r.Static<typeof card>;
 
 export const lane = r.Record({
   id: r.String,
-  title: r.String.optional()
+  title: r.String.optional(),
+  cards: r.Array(r.String)
 });
 
 export type Lane = r.Static<typeof lane>;
@@ -37,7 +40,9 @@ export type Lane = r.Static<typeof lane>;
 export const board = r.Record({
   id: r.String,
   title: r.String.optional(),
-  background: r.String.optional()
+  background: r.String.optional(),
+  lanes: r.Array(r.String),
+  categories: r.Array(r.String)
 });
 
 export type Board = r.Static<typeof board>;
@@ -49,12 +54,6 @@ export const state = r.Record({
     card: r.Dictionary(card, r.String),
     task: r.Dictionary(task, r.String),
     category: r.Dictionary(category, r.String)
-  }),
-  list: r.Record({
-    categories: r.Dictionary(r.Array(r.String), r.String), // { [card.id]: [category.id][] }
-    tasks: r.Dictionary(r.Array(r.String), r.String), // { [card.id]: [task.id][] }
-    cards: r.Dictionary(r.Array(r.String), r.String), // { [lane.id]: [card.id][] }
-    lanes: r.Dictionary(r.Array(r.String), r.String) // { [board.id]: [lane.id][] }
   }),
   active: r.Record({
     board: r.String.optional(),

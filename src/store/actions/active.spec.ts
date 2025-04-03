@@ -1,7 +1,7 @@
 import test from 'tape';
 import { produce } from 'immer';
 
-import createStore from '../../store.struct';
+import createStore from '../store.struct';
 import * as actions from './active';
 
 test('[active.set] sets active', t => {

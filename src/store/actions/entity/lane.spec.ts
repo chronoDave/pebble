@@ -8,7 +8,7 @@ import * as actions from './lane';
 
 test('[lane.set] sets lane', t => {
   const store = createStore();
-  const lane: Lane = { id: 'a' };
+  const lane: Lane = { id: 'a', cards: [] };
 
   store.set(produce(actions.set(lane)));
   t.deepEqual(store.current.entity.lane[lane.id], lane, 'sets lane');
@@ -27,7 +27,7 @@ test('[lane.create] creates new lane', t => {
 
 test('[lane.title] updates title', t => {
   const store = createStore();
-  const lane: Lane = { id: 'a', title: 'title' };
+  const lane: Lane = { id: 'a', title: 'title', cards: [] };
   store.set(produce(actions.set(lane)));
 
   store.set(produce(actions.title(lane.id)('b')));
@@ -41,7 +41,7 @@ test('[lane.title] updates title', t => {
 
 test('[lane.remove] removes lane', t => {
   const store = createStore();
-  const lane: Lane = { id: 'a' };
+  const lane: Lane = { id: 'a', cards: [] };
   store.set(produce(actions.set(lane)));
 
   store.set(produce(actions.remove(lane.id)));

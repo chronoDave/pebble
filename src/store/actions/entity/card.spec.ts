@@ -8,7 +8,7 @@ import * as actions from './card';
 
 test('[card.set] sets card', t => {
   const store = createStore();
-  const card: Card = { id: 'a' };
+  const card: Card = { id: 'a', categories: [], tasks: [] };
 
   store.set(produce(actions.set(card)));
   t.deepEqual(store.current.entity.card[card.id], card, 'sets card');
@@ -27,7 +27,7 @@ test('[card.create] creates new card', t => {
 
 test('[card.title] updates title', t => {
   const store = createStore();
-  const card: Card = { id: 'a', title: 'title' };
+  const card: Card = { id: 'a', title: 'title', categories: [], tasks: [] };
   store.set(produce(actions.set(card)));
 
   store.set(produce(actions.title(card.id)('b')));
@@ -41,7 +41,7 @@ test('[card.title] updates title', t => {
 
 test('[card.description] updates description', t => {
   const store = createStore();
-  const card: Card = { id: 'a', description: 'description' };
+  const card: Card = { id: 'a', description: 'description', categories: [], tasks: [] };
   store.set(produce(actions.set(card)));
 
   store.set(produce(actions.description(card.id)('b')));
@@ -55,7 +55,7 @@ test('[card.description] updates description', t => {
 
 test('[card.remove] removes card', t => {
   const store = createStore();
-  const card: Card = { id: 'a' };
+  const card: Card = { id: 'a', categories: [], tasks: [] };
   store.set(produce(actions.set(card)));
 
   store.set(produce(actions.remove(card.id)));
