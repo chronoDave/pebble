@@ -11,7 +11,3 @@ export const set = (key: keyof State['active']) =>
         delete draft.active[key];
       }
     };
-
-export const board = set('board');
-export const collapse = set('collapse');
-export const drawer = set('drawer');

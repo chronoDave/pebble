@@ -1,10 +1,17 @@
+import type { Component } from 'forgo';
+
+import deepEqual from 'fast-deep-equal';
+
 import Stack from '../stack/stack';
 
 export type View<S extends object> = { current: S; previous: S | null };
-
 export type Subscriber<S extends object> = (view: View<S>) => void;
-
 export type Reducer<S extends object> = (state: S) => S;
+export type Selector<S extends object, T, K> = (state: S | null) => (...args: T[]) => K;
+export type Slice<T, K> = {
+  state: (...args: T[]) => K;
+  subscribe: (...args: T[]) => <S extends object>(component: Component<S>) => void;
+};
 
 export type StoreOptions<S extends object> = {
   subscribers?: Array<Subscriber<S>>;
@@ -76,5 +83,35 @@ export default class Store<S extends object> {
     this._subscribers.delete(subscriber);
 
     return this;
+  }
+
+  select<T, K>(
+    selector: Selector<S, T, K>,
+    shouldUpdate?: (view: View<S>) => boolean
+  ): Slice<T, K> {
+    let subscribed = false;
+
+    return {
+      state: (...args) => {
+        if (!subscribed) throw new Error('Component did not call "subscribe()"');
+  
+        return selector(this.current)(...args);
+      },
+      subscribe: (...args) => component => {
+        subscribed = true;
+  
+        const subscriber: Subscriber<S> = state => {
+          if (shouldUpdate?.(state)) return component.update();
+  
+          const current = selector(state.current)(...args);
+          const previous = selector(state.previous)(...args);
+  
+          if (!deepEqual(current, previous)) component.update();
+        };
+  
+        component.unmount(() => this.off(subscriber));
+        component.mount(() => this.on(subscriber));
+      }
+    };
   }
 }

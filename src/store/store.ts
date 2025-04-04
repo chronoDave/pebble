@@ -3,7 +3,6 @@ import type { State } from './schema';
 import { produce } from 'immer';
 
 import Store from '../lib/store/store';
-import createSelector from '../lib/selector/selector';
 import Storage from '../lib/storage/storage';
 import createDropzone from '../lib/dropzone/dropzone';
 
@@ -42,7 +41,7 @@ document.addEventListener('keyup', event => {
 });
 
 document.addEventListener('keyup', event => {
-  if (event.key === 'Escape') store.set(produce(active.drawer()));
+  if (event.key === 'Escape') store.set(produce(active.set('drawer')()));
 });
 
 createDropzone(raw => {
@@ -56,4 +55,3 @@ createDropzone(raw => {
 });
 
 export default store;
-export const selector = createSelector(store);
