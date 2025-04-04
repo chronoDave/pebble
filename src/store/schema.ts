@@ -6,7 +6,7 @@ export const category = r.Record({
   colour: r.Record({
     background: r.String.optional(),
     text: r.String.optional()
-  })
+  }).optional()
 });
 
 export type Category = r.Static<typeof category>;

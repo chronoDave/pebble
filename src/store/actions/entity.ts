@@ -1,13 +1,15 @@
 import type { Draft } from 'immer';
-import type { State } from '../../schema';
-import type { Only } from '../../../lib/types';
+import type { State } from '../schema';
+import type { Only } from '../../lib/types';
 
+/** Set entity at entity id */
 export const set = <T extends keyof State['entity']>(type: T) =>
   (entity: State['entity'][T][string]) =>
     (draft: Draft<State>) => {
       draft.entity[type][entity.id] = entity;
     };
 
+/** Set or delete entity string property */
 export const string = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string | undefined>>(property: P) =>
     (id: string) =>
@@ -22,6 +24,7 @@ export const string = <T extends keyof State['entity']>(type: T) =>
           }
         };
 
+/** Set or toggle entity boolean property */
 export const boolean = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], boolean | undefined>>(property: P) =>
     (id: string) =>
@@ -36,6 +39,7 @@ export const boolean = <T extends keyof State['entity']>(type: T) =>
           }
         };
 
+/** Add item to entity list property */
 export const push = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
     (id: string) =>
@@ -45,6 +49,7 @@ export const push = <T extends keyof State['entity']>(type: T) =>
           draft.entity[type][id][property].push(key);
         };
 
+/** Remove item from entity list property */
 export const pull = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
     (id: string) =>
@@ -57,7 +62,8 @@ export const pull = <T extends keyof State['entity']>(type: T) =>
           draft.entity[type][id][property] = Array.from(set);
         };
 
-export const order = <T extends keyof State['entity']>(type: T) =>
+/** Move item within entity list property */        
+export const move = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
     (id: string) =>
       (key: string) =>
@@ -71,7 +77,8 @@ export const order = <T extends keyof State['entity']>(type: T) =>
             (draft.entity[type][id][property] as string[]).splice(to, 0, key);
           };
 
-export const move = <T extends keyof State['entity']>(type: T) =>
+/** Move items between entities' list property */    
+export const transfer = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
     (from: string) =>
       (to: string) =>
@@ -81,19 +88,9 @@ export const move = <T extends keyof State['entity']>(type: T) =>
             push(type)(property)(to)(key)(draft);
           };
 
+/** Remove entity at id */
 export const remove = <T extends keyof State['entity']>(type: T) =>
   (id: string) =>
     (draft: Draft<State>) => {
       delete draft.entity[type][id];
     };
-
-export default <T extends keyof State['entity']>(type: T) => ({
-  set: set(type),
-  string: string(type),
-  boolean: boolean(type),
-  push: push(type),
-  pull: pull(type),
-  order: order(type),
-  move: move(type),
-  remove: remove(type)
-});
