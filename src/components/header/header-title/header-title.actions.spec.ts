@@ -5,9 +5,9 @@ import { produce } from 'immer';
 
 import createStore from '../../../store/store.struct';
 
-import * as actions from './app-header-title.actions';
+import * as actions from './header-title.actions';
 
-test('[app-header-title.title] sets and removes board title', t => {
+test('[header-title.title] sets and removes board title', t => {
   const store = createStore();
   store.set(produce(draft => {
     const board: Board = {

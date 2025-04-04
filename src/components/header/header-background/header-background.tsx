@@ -7,15 +7,15 @@ import image from '../../../lib/input/image';
 import Icon from '../../icon/icon';
 import store from '../../../store/store';
 
-import selector from './app-header-background.state';
-import * as actions from './app-header-background.actions';
+import selector from './header-background.state';
+import * as actions from './header-background.actions';
 
-export type AppHeaderBackgroundProps = {
+export type HeaderBackgroundProps = {
   id: string;
 };
 
-const AppHeaderBackground: Component<AppHeaderBackgroundProps> = initial => {
-  const component = new forgo.Component<AppHeaderBackgroundProps>({
+const HeaderBackground: Component<HeaderBackgroundProps> = initial => {
+  const component = new forgo.Component<HeaderBackgroundProps>({
     render(props) {
       const bg = selector.state(props.id);
 
@@ -39,4 +39,4 @@ const AppHeaderBackground: Component<AppHeaderBackgroundProps> = initial => {
   return component;
 };
 
-export default AppHeaderBackground;
+export default HeaderBackground;

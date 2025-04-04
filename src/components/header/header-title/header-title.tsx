@@ -4,15 +4,15 @@ import * as forgo from 'forgo';
 
 import contentEditable from '../../../lib/contentEditable/contentEditable';
 
-import selector from './app-header-title.state';
-import * as actions from './app-header-title.actions';
+import selector from './header-title.state';
+import * as actions from './header-title.actions';
 
-export type AppHeaderTitle = {
+export type HeaderTitle = {
   id: string;
 };
 
-const AppHeaderTitle: Component<AppHeaderTitle> = initial => {
-  const component = new forgo.Component<AppHeaderTitle>({
+const HeaderTitle: Component<HeaderTitle> = initial => {
+  const component = new forgo.Component<HeaderTitle>({
     render(props) {
       const state = selector.state();
 
@@ -35,4 +35,4 @@ const AppHeaderTitle: Component<AppHeaderTitle> = initial => {
   return component;
 };
 
-export default AppHeaderTitle;
+export default HeaderTitle;

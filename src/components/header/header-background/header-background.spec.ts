@@ -5,9 +5,9 @@ import { produce } from 'immer';
 
 import createStore from '../../../store/store.struct';
 
-import * as actions from './app-header-background.actions';
+import * as actions from './header-background.actions';
 
-test('[app-header-background.background] sets and removes board background', t => {
+test('[header-background.background] sets and removes board background', t => {
   const store = createStore();
   store.set(produce(draft => {
     const board: Board = {

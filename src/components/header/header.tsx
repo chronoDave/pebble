@@ -7,17 +7,17 @@ import store from '../../store/store';
 import download from '../../lib/input/download';
 import Icon from '../icon/icon';
 
-import AppHeaderTitle from './app-header-title/app-header-title';
-import AppHeaderBackground from './app-header-background/app-header-background';
-import * as actions from './app-header.actions';
-import selector from './app-header.state';
+import HeaderTitle from './header-title/header-title';
+import HeaderBackground from './header-background/header-background';
+import * as actions from './header.actions';
+import selector from './header.state';
 
-import './app-header.scss';
+import './header.scss';
 
-export type AppHeaderProps = {};
+export type HeaderProps = {};
 
-const AppHeader: Component<AppHeaderProps> = () => {
-  const component = new forgo.Component<AppHeaderProps>({
+const Header: Component<HeaderProps> = () => {
+  const component = new forgo.Component<HeaderProps>({
     render() {
       const id = selector.state();
 
@@ -28,8 +28,8 @@ const AppHeader: Component<AppHeaderProps> = () => {
               <Icon id='bars' />
               <span class='sr-only'>Open board drawer</span>
             </button>
-            {typeof id === 'string' ? <AppHeaderTitle id={id} /> : null}
-            {typeof id === 'string' ? <AppHeaderBackground id={id} /> : null}
+            {typeof id === 'string' ? <HeaderTitle id={id} /> : null}
+            {typeof id === 'string' ? <HeaderBackground id={id} /> : null}
             <button
               type='button'
               disabled={typeof id !== 'string'}
@@ -61,4 +61,4 @@ const AppHeader: Component<AppHeaderProps> = () => {
   return component;
 };
 
-export default AppHeader;
+export default Header;

@@ -4,7 +4,8 @@ import * as forgo from 'forgo';
 
 import Board from '../board/board';
 import Drawer from '../drawer/drawer';
-import Header from './header/header';
+import Header from '../header/header';
+
 import selector from './app.state';
 
 import './app.scss';
