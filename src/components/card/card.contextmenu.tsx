@@ -5,15 +5,13 @@ import * as forgo from 'forgo';
 import Contextmenu from '../contextmenu/contextmenu';
 import Icon from '../icon/icon';
 
-export type ContextmenuCardProps = {
-  id: string;
-};
+export type ContextmenuCardProps = {};
 
 const ContextmenuCard: Component<ContextmenuCardProps> = () => {
   const component = new forgo.Component<ContextmenuCardProps>({
-    render(props) {
+    render() {
       return (
-        <Contextmenu id={props.id}>
+        <Contextmenu title='Open card menu'>
           <ul class='unstyled'>
             <li>
               <button

@@ -48,7 +48,7 @@ const Lane: Component<LaneProps> = initial => {
                 <Icon id='plus' />
                 <span class='sr-only'>Add card</span>
               </button>
-              <Contextmenu id={`contextmenu-${lane.id}`}>
+              <Contextmenu title='Open lane menu'>
                 <li>
                   <button
                     type="button"

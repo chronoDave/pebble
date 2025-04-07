@@ -57,8 +57,7 @@ export const state = r.Record({
   }),
   active: r.Record({
     board: r.String.optional(),
-    drawer: r.String.optional(),
-    collapse: r.String.optional()
+    drawer: r.String.optional()
   })
 });
 

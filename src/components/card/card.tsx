@@ -53,7 +53,7 @@ const Card: Component<CardProps> = initial => {
                 <Icon id='tag' />
                 <span class='sr-only'>Open tags collapse</span>
               </CollapseButton>
-              <Contextmenu id={card.id} />
+              <Contextmenu />
             </div>
             {card.categories.length > 0 ? (
               <ul
