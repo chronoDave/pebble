@@ -11,5 +11,5 @@ createDragFocus();
 forgo.mount([
   <Header />,
   <Board />,
-  <Drawer />
+  <Drawer id='drawer' />
 ], document.body);

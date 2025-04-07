@@ -1,22 +1,40 @@
-import type { Board } from '../../store/entities';
+import type { Component } from 'forgo';
 
-import { produce } from 'immer';
+export default class State<S extends object> {
+  private readonly _id: string;
 
-import store, { selector } from '../../store/store';
-import uid from '../../lib/string/uid';
+  private _state: boolean;
+  private _component?: Component<S>;
 
-export default selector(state => () => !!state?.active.drawer);
+  constructor(id: string) {
+    this._id = id;
+    this._state = false;
+  }
 
-export const close = () => store.set(produce(draft => {
-  draft.active.drawer = false;
-}));
+  get open() {
+    return this._state;
+  }
 
-export const addBoard = () => store.set(produce(draft => {
-  const board: Board = {
-    id: uid(),
-    title: `New board ${Object.keys(draft.entity.board).length + 1}`,
-    lanes: []
-  };
+  set open(open: boolean) {
+    if (!this._component) throw new Error('Component did not call "subscribe()"');
+  
+    this._state = open;
+    this._component.update();
+  }
 
-  draft.entity.board[board.id] = board;
-}));
+  subscribe(component: Component<S>) {
+    this._component = component;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') this.open = false;
+    };
+
+    component.unmount(() => {
+      document.removeEventListener('keyup', handleEscape);
+    });
+
+    component.mount(() => {
+      document.addEventListener('keyup', handleEscape, { passive: true });
+    });
+  }
+}
