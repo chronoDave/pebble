@@ -14,20 +14,22 @@ import selector from './header.state';
 
 import './header.scss';
 
-export type HeaderProps = {};
+export type HeaderProps = {
+  drawer: string;
+};
 
 const Header: Component<HeaderProps> = () => {
   const component = new forgo.Component<HeaderProps>({
-    render() {
+    render(props) {
       const active = selector.state();
 
       return (
         <header>
           <div>
-            {/* <button type="button" onclick={() => store.set(produce(actions.open))}>
+            <button type="button" onclick={() => store.set(produce(actions.open(props.drawer)))}>
               <Icon id='bars' />
               <span class='sr-only'>Open board drawer</span>
-            </button> */}
+            </button>
             <HeaderTitle />
             <HeaderBackground />
             <button

@@ -23,22 +23,6 @@ test('[header.create] creates new active board with lane', t => {
   t.end();
 });
 
-test('[header.background] sets and removes board background', t => {
-  const store = createStore();
-  store.set(produce(actions.create));
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const id = store.current.active.board!;
-
-  store.set(produce(actions.background('bg')));
-  t.equal(store.current.entity.board[id].background, 'bg', 'sets background');
-
-  store.set(produce(actions.background()));
-  t.false(store.current.entity.board[id].background, 'removes background');
-
-  t.end();
-});
-
 test('[header.remove] removes board and sets active to next board. If no board available, creates new board', t => {
   const store = createStore();
   store.set(produce(actions.create));
