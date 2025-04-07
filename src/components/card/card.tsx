@@ -63,7 +63,7 @@ const Card: Component<CardProps> = initial => {
                   const tag = button?.closest<HTMLElement>('.tag');
 
                   if (button?.dataset.action === 'delete' && tag) {
-                    store.set(produce(actions.category(card.id).remove(tag.id)));
+                    store.set(produce(actions.category(card.id).pull(tag.id)));
                     event.stopPropagation();
                   }
                 }}
