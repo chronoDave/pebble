@@ -20,10 +20,11 @@ const HeaderBackground: Component<HeaderBackgroundProps> = () => {
       return (
         <button
           type='button'
-          onclick={void (async () => {
-            if (typeof bg === 'string') return store.set(produce(actions.background()));
-            return store.set(produce(actions.background(await image() ?? undefined)));
-          })}
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onclick={async () => {
+            if (typeof bg === 'string') return store.set(produce(actions.remove));
+            store.set(produce(actions.set(await image())));
+          }}
         >
           <span class='sr-only'>{bg === null ? 'Add' : 'remove'} background image</span>
           <Icon id={bg === null ? 'imagePlus' : 'imageRemove'} />
