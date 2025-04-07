@@ -55,15 +55,26 @@ test('[entity.boolean] sets boolean property', t => {
   t.end();
 });
 
-test('[entity.push] adds item to list', t => {
+test('[entity.push] adds item to end of list', t => {
   const store = createStore();
-  const board: Board = { id: 'd', categories: [], lanes: [] };
+  const board: Board = { id: 'd', categories: [], lanes: ['1'] };
 
   store.set(produce(actions.set('board')(board)));
 
   store.set(produce(actions.push('board')('lanes')(board.id)('0')));
-  t.equal(store.current.entity.board[board.id].lanes.length, 1, 'adds item');
-  t.true(store.current.entity.board[board.id].lanes.includes('0'), 'has item');
+  t.deepEqual(store.current.entity.board[board.id].lanes, ['1', '0'], 'pushes item');
+
+  t.end();
+});
+
+test('[entity.unshift] adds item to start of list', t => {
+  const store = createStore();
+  const board: Board = { id: 'd', categories: [], lanes: ['1'] };
+
+  store.set(produce(actions.set('board')(board)));
+
+  store.set(produce(actions.unshift('board')('lanes')(board.id)('0')));
+  t.deepEqual(store.current.entity.board[board.id].lanes, ['0', '1'], 'unshifts item');
 
   t.end();
 });

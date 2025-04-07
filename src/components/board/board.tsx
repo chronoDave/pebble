@@ -89,7 +89,7 @@ const Board: Component<BoardProps> = () => {
           <ol class="unstyled">
             {board.lanes.map(lane => (
               <li key={lane}>
-                <Lane lane={lane} board={board.id} />
+                <Lane id={lane} />
               </li>
             ))}
             <li>

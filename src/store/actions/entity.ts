@@ -39,14 +39,24 @@ export const boolean = <T extends keyof State['entity']>(type: T) =>
           }
         };
 
-/** Add item to entity list property */
+/** Push item to entity list property */
 export const push = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
     (id: string) =>
       (key: string) =>
         (draft: Draft<State>) => {
           // @ts-expect-error: TS2536, P is already type narrowed and guaranteed to be a valid property
-          draft.entity[type][id][property].push(key);
+          (draft.entity[type][id][property] as string[]).push(key);
+        };
+
+/** Unshift item to entity list property */
+export const unshift = <T extends keyof State['entity']>(type: T) =>
+  <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
+    (id: string) =>
+      (key: string) =>
+        (draft: Draft<State>) => {
+          // @ts-expect-error: TS2536, P is already type narrowed and guaranteed to be a valid property
+          (draft.entity[type][id][property] as string[]).unshift(key);
         };
 
 /** Remove item from entity list property */
@@ -62,7 +72,7 @@ export const pull = <T extends keyof State['entity']>(type: T) =>
           draft.entity[type][id][property] = Array.from(set);
         };
 
-/** Move item within entity list property */        
+/** Move item within entity list property */
 export const move = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
     (id: string) =>
@@ -77,7 +87,7 @@ export const move = <T extends keyof State['entity']>(type: T) =>
             (draft.entity[type][id][property] as string[]).splice(to, 0, key);
           };
 
-/** Move items between entities' list property */    
+/** Move items between entities' list property */
 export const transfer = <T extends keyof State['entity']>(type: T) =>
   <P extends Only<State['entity'][T][string], string[]>>(property: P) =>
     (from: string) =>
