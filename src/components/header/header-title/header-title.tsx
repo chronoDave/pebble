@@ -1,19 +1,19 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
+import { produce } from 'immer';
 
 import contentEditable from '../../../lib/contentEditable/contentEditable';
+import store from '../../../store/store';
 
 import selector from './header-title.state';
 import * as actions from './header-title.actions';
 
-export type HeaderTitle = {
-  id: string;
-};
+export type HeaderTitle = {};
 
-const HeaderTitle: Component<HeaderTitle> = initial => {
+const HeaderTitle: Component<HeaderTitle> = () => {
   const component = new forgo.Component<HeaderTitle>({
-    render(props) {
+    render() {
       const state = selector.state();
 
       return (
@@ -21,7 +21,7 @@ const HeaderTitle: Component<HeaderTitle> = initial => {
           {...contentEditable}
           onblur={event => {
             const title = (event.target as HTMLHeadingElement).innerText;
-            if (title !== state) actions.title(props.id)(title);
+            if (title !== state) store.set(produce(actions.title(title)));
           }}
         >
           {state}
@@ -30,7 +30,7 @@ const HeaderTitle: Component<HeaderTitle> = initial => {
     }
   });
 
-  selector.subscribe(initial.id)(component);
+  selector.subscribe()(component);
 
   return component;
 };

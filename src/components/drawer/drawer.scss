@@ -1,7 +1,7 @@
 @use 'breakpoint';
 
 .drawer {
-  &[data-visible="false"] {
+  &[aria-hidden="true"] {
     display: none;
   }
 

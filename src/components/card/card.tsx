@@ -49,10 +49,10 @@ const Card: Component<CardProps> = initial => {
               {card.title ?? 'New card'}
             </h3>
             <div class='actions'>
-              <CollapseButton id={id.tags}>
+              {/* <CollapseButton id={id.tags}>
                 <Icon id='tag' />
                 <span class='sr-only'>Open tags collapse</span>
-              </CollapseButton>
+              </CollapseButton> */}
               <Contextmenu />
             </div>
             {card.categories.length > 0 ? (
@@ -70,17 +70,17 @@ const Card: Component<CardProps> = initial => {
               >
                 {card.categories.map(category => (
                   <li key={category}>
-                    <Tag id={category}>
+                    {/* <Tag id={category}>
                       <button type='button' data-action='delete'>
                         <Icon id='xmark' />
                         <span class='sr-only'>Remove tag</span>
                       </button>
-                    </Tag>
+                    </Tag> */}
                   </li>
                 ))}
               </ul>
             ) : null}
-            <CollapseTags id={id.tags} card={card.id} />
+            {/* <CollapseTags id={id.tags} card={card.id} /> */}
           </header>
           <p
             {...contentEditable}
@@ -91,7 +91,7 @@ const Card: Component<CardProps> = initial => {
           >
             {card.description ?? 'New description'}
           </p>
-          <Tasklist id={card.id} />
+          {/* <Tasklist id={card.id} /> */}
         </article>
       );
     }

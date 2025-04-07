@@ -1,5 +1,10 @@
 import store from '../../../store/store';
 
-export default store.select(state => (id: string) =>
-  state?.entity.board[id].title ?? null
+export default store.select(state =>
+  () => {
+    const id = state?.active.board;
+    if (typeof id !== 'string') return null;
+
+    return state?.entity.board[id].title ?? null;
+  }
 );

@@ -23,11 +23,17 @@ export const create = (draft: Draft<State>) => {
   )(draft);
 };
 
-/** Opens drawer */
-export const open = active.set('drawer')('drawer');
-
 /** Sets board background */
-export const background = entity.string('board')('background');
+export const background = (background?: string) =>
+  (draft: Draft<State>) => {
+    const id = draft.active.board;
+    if (typeof id === 'string') entity.string('board')('background')(id)(background)(draft);
+  };
 
 /** Removes board */
-export const remove = entity.remove('board');
+export const remove = (draft: Draft<State>) => {
+  const id = draft.active.board;
+  if (typeof id === 'string') entity.remove('board')(id)(draft);
+
+  active.set('board')()(draft);
+};

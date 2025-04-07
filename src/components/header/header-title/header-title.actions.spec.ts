@@ -17,12 +17,13 @@ test('[header-title.title] sets and removes board title', t => {
     };
 
     draft.entity.board.a = board;
+    draft.active.board = 'a';
   }));
 
-  store.set(produce(actions.title('a')('title')));
+  store.set(produce(actions.title('title')));
   t.equal(store.current.entity.board.a.title, 'title', 'sets title');
 
-  store.set(produce(actions.title('a')()));
+  store.set(produce(actions.title()));
   t.false(store.current.entity.board.a.title, 'removes title');
 
   t.end();

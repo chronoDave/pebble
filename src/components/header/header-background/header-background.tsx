@@ -10,21 +10,19 @@ import store from '../../../store/store';
 import selector from './header-background.state';
 import * as actions from './header-background.actions';
 
-export type HeaderBackgroundProps = {
-  id: string;
-};
+export type HeaderBackgroundProps = {};
 
-const HeaderBackground: Component<HeaderBackgroundProps> = initial => {
+const HeaderBackground: Component<HeaderBackgroundProps> = () => {
   const component = new forgo.Component<HeaderBackgroundProps>({
-    render(props) {
-      const bg = selector.state(props.id);
+    render() {
+      const bg = selector.state();
 
       return (
         <button
           type='button'
           onclick={void (async () => {
-            if (typeof bg === 'string') return store.set(produce(actions.background(props.id)()));
-            return store.set(produce(actions.background(props.id)(await image() ?? undefined)));
+            if (typeof bg === 'string') return store.set(produce(actions.background()));
+            return store.set(produce(actions.background(await image() ?? undefined)));
           })}
         >
           <span class='sr-only'>{bg === null ? 'Add' : 'remove'} background image</span>
@@ -34,7 +32,7 @@ const HeaderBackground: Component<HeaderBackgroundProps> = initial => {
     }
   });
 
-  selector.subscribe(initial.id)(component);
+  selector.subscribe()(component);
 
   return component;
 };

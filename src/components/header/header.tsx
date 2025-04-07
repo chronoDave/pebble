@@ -19,23 +19,21 @@ export type HeaderProps = {};
 const Header: Component<HeaderProps> = () => {
   const component = new forgo.Component<HeaderProps>({
     render() {
-      const id = selector.state();
+      const active = selector.state();
 
       return (
         <header>
           <div>
-            <button type="button" onclick={() => store.set(produce(actions.open))}>
+            {/* <button type="button" onclick={() => store.set(produce(actions.open))}>
               <Icon id='bars' />
               <span class='sr-only'>Open board drawer</span>
-            </button>
-            {typeof id === 'string' ? <HeaderTitle id={id} /> : null}
-            {typeof id === 'string' ? <HeaderBackground id={id} /> : null}
+            </button> */}
+            <HeaderTitle />
+            <HeaderBackground />
             <button
               type='button'
-              disabled={typeof id !== 'string'}
-              onclick={() => {
-                if (typeof id === 'string') store.set(produce(actions.remove(id)));
-              }}
+              disabled={!active}
+              onclick={() => store.set(produce(actions.remove))}
             >
               <span class='sr-only'>Remove active board</span>
               <Icon id='trash' />

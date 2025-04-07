@@ -1,3 +1,10 @@
-import * as entity from '../../../store/actions/entity';
+import type { Draft } from 'immer';
 
-export const background = entity.string('board')('background');
+import * as entity from '../../../store/actions/entity';
+import type { State } from '../../../store/schema';
+
+export const background = (background?: string) =>
+  (draft: Draft<State>) => {
+    const id = draft.active.board;
+    if (typeof id === 'string') entity.string('board')('background')(id)(background)(draft);
+  };

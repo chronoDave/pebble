@@ -23,26 +23,29 @@ test('[header.create] creates new active board with lane', t => {
   t.end();
 });
 
-test('[header.open] opens drawer', t => {
-  const store = createStore();
-
-  store.set(produce(actions.open));
-  t.equal(store.current.active.drawer, 'drawer', 'opens drawer');
-
-  t.end();
-});
-
 test('[header.background] sets and removes board background', t => {
   const store = createStore();
   store.set(produce(actions.create));
 
-  const [id] = Object.keys(store.current.entity.board);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const id = store.current.active.board!;
 
-  store.set(produce(actions.background(id)('bg')));
+  store.set(produce(actions.background('bg')));
   t.equal(store.current.entity.board[id].background, 'bg', 'sets background');
 
-  store.set(produce(actions.background(id)()));
+  store.set(produce(actions.background()));
   t.false(store.current.entity.board[id].background, 'removes background');
+
+  t.end();
+});
+
+test('[header.remove] removes active board', t => {
+  const store = createStore();
+  store.set(produce(actions.create));
+
+  store.set(produce(actions.remove));
+  t.equal(Object.keys(store.current.entity.board).length, 0, 'deletes board');
+  t.false(store.current.active.board, 'removes active');
 
   t.end();
 });

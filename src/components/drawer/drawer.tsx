@@ -19,7 +19,7 @@ const Drawer: Component<DrawerProps> = initial => {
           id={props.id}
           role="dialog"
           aria-modal="true"
-          aria-hidden={state.open}
+          aria-hidden={!state.open}
           aria-labelledby={`${props.id}-title`}
           class="drawer"
           onclick={event => {

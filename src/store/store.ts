@@ -8,17 +8,36 @@ import createDropzone from '../lib/dropzone/dropzone';
 
 import * as active from './actions/active';
 import { state as schema } from './schema';
+import uid from '../lib/string/uid';
+
+const board = uid();
+const lane = uid();
 
 const storage = new Storage('state', schema);
 const store = new Store<State>(storage.read() ?? {
   entity: {
-    board: {},
-    lane: {},
+    board: {
+      [board]: {
+        id: board,
+        title: 'New board',
+        lanes: [lane],
+        categories: []
+      }
+    },
+    lane: {
+      [lane]: {
+        id: lane,
+        title: 'New lane',
+        cards: []
+      }
+    },
     card: {},
     task: {},
     category: {}
   },
-  active: {}
+  active: {
+    board
+  }
 }, {
   subscribers: [
     ({ previous, current }) => {
@@ -35,6 +54,8 @@ const store = new Store<State>(storage.read() ?? {
 })
   .on(state => storage.write(state.current))
   .on(console.log);
+
+console.log(store.current);
 
 document.addEventListener('keyup', event => {
   if (event.ctrlKey && event.key === 'z') store.undo();
