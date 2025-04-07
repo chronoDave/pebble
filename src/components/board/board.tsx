@@ -1,54 +1,28 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
+import { produce } from 'immer';
 
+import store from '../../store/store';
 import Lane from '../lane/lane';
 import Icon from '../icon/icon';
 
-import selector, {
-  createLane,
-  moveCard,
-  moveCardUp,
-  moveCardDown,
-  moveLane
-} from './board.state';
+import selector from './board.state';
+import * as actions from './board.actions';
 
 import './board.scss';
 
-export type BoardProps = {
-  id: string;
-};
+export type BoardProps = {};
 
-const Board: Component<BoardProps> = initial => {
+const Board: Component<BoardProps> = () => {
   const component = new forgo.Component<BoardProps>({
-    render(props) {
-      const board = selector.state(props.id);
+    render() {
+      const board = selector.state();
 
       if (!board) return null;
       return [
-        <article
+        <main
           class='board'
-          onclick={event => {
-            const button = (event.target as HTMLElement | null)?.closest('button');
-            const card = button?.closest<HTMLElement>('.card');
-            const lane = button?.closest<HTMLElement>('.lane');
-
-            if (button?.dataset.action === 'move' && lane && card) {
-              if (button.dataset.direction === 'up') moveCardUp(card.id);
-              if (button.dataset.direction === 'down') moveCardDown(card.id);
-              if (button.dataset.direction === 'end') moveCard(card.id)({ lane: board.lanes[board.lanes.length - 1] });
-
-              if (button.dataset.direction === 'left') {
-                const i = board.lanes.indexOf(lane.id);
-                if (i > 0) moveCard(card.id)({ lane: board.lanes[i - 1] });
-              }
-
-              if (button.dataset.direction === 'right') {
-                const i = board.lanes.indexOf(lane.id);
-                if (i < board.lanes.length) moveCard(card.id)({ lane: board.lanes[i + 1] });
-              }
-            }
-          }}
           ondragstart={event => {
             const root = event.target as HTMLElement;
 
@@ -104,18 +78,11 @@ const Board: Component<BoardProps> = initial => {
             if (dropzone) {
               event.preventDefault();
 
-              const from = {
-                card: document.querySelector('[data-grabbed="true"] .card')?.id,
-                lane: document.querySelector('.lane > header[data-grabbed="true"]')?.closest('.lane')?.id
-              };
+              const id = document.querySelector('.lane > header[data-grabbed="true"]')?.closest('.lane')?.id;
+              const to = (event.target as HTMLElement).closest('.lane')?.id;
+              const i = Array.from(document.querySelectorAll('.lane').values()).findIndex(el => el.id === to);
 
-              const to = {
-                card: (event.target as HTMLElement).closest('.card')?.id,
-                lane: (event.target as HTMLElement).closest('.lane')?.id
-              };
-
-              if (typeof from.card === 'string') moveCard(from.card)(to);
-              if (typeof from.lane === 'string') moveLane(from.lane)(to);
+              if (typeof id === 'string') store.set(produce(actions.move(board.id)(id)(i)));
             }
           }}
         >
@@ -127,14 +94,17 @@ const Board: Component<BoardProps> = initial => {
             ))}
             <li>
               <div class='lane'>
-                <button type='button' onclick={() => createLane(board.id)}>
+                <button
+                  type='button'
+                  onclick={() => store.set(produce(actions.lane(board.id)))}
+                >
                   <Icon id='plus' />
                   Add lane
                 </button>
               </div>
             </li>
           </ol>
-        </article>,
+        </main>,
         <div class='bg'>
           {typeof board.background === 'string' ? (
             <img
@@ -148,7 +118,7 @@ const Board: Component<BoardProps> = initial => {
     }
   });
 
-  selector.subscribe(initial.id)(component);
+  selector.subscribe()(component);
 
   return component;
 };

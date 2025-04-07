@@ -3,9 +3,9 @@ import { produce } from 'immer';
 
 import createStore from '../../store/store.struct';
 
-import * as actions from './app-header.actions';
+import * as actions from './header.actions';
 
-test('[app-header.create] creates new active board with lane', t => {
+test('[header.create] creates new active board with lane', t => {
   const store = createStore();
 
   store.set(produce(actions.create));
@@ -23,7 +23,7 @@ test('[app-header.create] creates new active board with lane', t => {
   t.end();
 });
 
-test('[app-header.open] opens drawer', t => {
+test('[header.open] opens drawer', t => {
   const store = createStore();
 
   store.set(produce(actions.open));
@@ -32,7 +32,7 @@ test('[app-header.open] opens drawer', t => {
   t.end();
 });
 
-test('[app-header.background] sets and removes board background', t => {
+test('[header.background] sets and removes board background', t => {
   const store = createStore();
   store.set(produce(actions.create));
 
