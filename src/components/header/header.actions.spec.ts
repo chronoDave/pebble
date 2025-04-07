@@ -39,13 +39,20 @@ test('[header.background] sets and removes board background', t => {
   t.end();
 });
 
-test('[header.remove] removes active board', t => {
+test('[header.remove] removes board and sets active to next board. If no board available, creates new board', t => {
   const store = createStore();
+  store.set(produce(actions.create));
   store.set(produce(actions.create));
 
   store.set(produce(actions.remove));
-  t.equal(Object.keys(store.current.entity.board).length, 0, 'deletes board');
-  t.false(store.current.active.board, 'removes active');
+  t.equal(Object.keys(store.current.entity.board).length, 1, 'deletes board');
+  t.equal(Object.keys(store.current.entity.board)[0], store.current.active.board, 'sets active');
+
+  const [id] = Object.keys(store.current.entity.board);
+  store.set(produce(actions.remove));
+  t.false(store.current.entity.board[id], 'deletes board');
+  t.equal(Object.keys(store.current.entity.board).length, 1, 'creates new board');
+  t.equal(Object.keys(store.current.entity.board)[0], store.current.active.board, 'sets active');
 
   t.end();
 });

@@ -35,5 +35,10 @@ export const remove = (draft: Draft<State>) => {
   const id = draft.active.board;
   if (typeof id === 'string') entity.remove('board')(id)(draft);
 
-  active.set('board')()(draft);
+  const keys = Object.values(draft.entity.board);
+  if (keys.length === 0) {
+    create(draft);
+  } else {
+    active.set('board')(keys[keys.length - 1].id)(draft);
+  }
 };
