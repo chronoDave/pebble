@@ -46,7 +46,10 @@ const config = {
     log,
     sass({
       minify: !watch,
-      depedencies: ['src/scss/lib']
+      depedencies: ['src/scss/lib'],
+      deprecations: {
+        ignore: ['mixed-decls']
+      }
     })
   ]
 };
