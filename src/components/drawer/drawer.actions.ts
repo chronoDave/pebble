@@ -1,3 +1,24 @@
+import type { Draft } from 'immer';
+import type { State } from '../../store/schema';
+
+import uid from '../../lib/string/uid';
+import join from '../../lib/fn/join';
+import * as entity from '../../store/actions/entity';
 import * as active from '../../store/actions/active';
 
-export const close = active.set('drawer')();
+export const close = active.drawer(false);
+
+export const add = (draft: Draft<State>) => {
+  const id = uid();
+
+  join(
+    entity.set('board')({
+      id,
+      title: 'New board',
+      lanes: [],
+      categories: []
+    }),
+    active.board(id),
+    close
+  )(draft);
+};

@@ -1,13 +1,18 @@
 import type { Draft } from 'immer';
 import type { State } from '../schema';
 
-/** Set or remove active id */
-export const set = (key: keyof State['active']) =>
-  (id?: string) =>
-    (draft: Draft<State>) => {
-      if (typeof id === 'string') {
-        draft.active[key] = id;
-      } else {
-        delete draft.active[key];
-      }
-    };
+export const board = (id?: string) =>
+  (draft: Draft<State>) => {
+    if (typeof id === 'string') {
+      draft.active.board = id;
+    } else {
+      delete draft.active.board;
+    }
+  };
+
+export const drawer = (open?: boolean) =>
+  (draft: Draft<State>) => {
+    draft.active.drawer = typeof open === 'boolean' ?
+      open :
+      !draft.active.drawer;
+  };

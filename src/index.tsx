@@ -9,7 +9,7 @@ import './index.scss';
 
 createDragFocus();
 forgo.mount([
-  <Header drawer='drawer' />,
+  <Header />,
   <Board />,
-  <Drawer id='drawer' />
+  <Drawer />
 ], document.body);

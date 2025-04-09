@@ -49,15 +49,15 @@ export type Board = r.Static<typeof board>;
 
 export const state = r.Record({
   entity: r.Record({
-    board: r.Dictionary(board, r.String),
-    lane: r.Dictionary(lane, r.String),
-    card: r.Dictionary(card, r.String),
-    task: r.Dictionary(task, r.String),
-    category: r.Dictionary(category, r.String)
+    board: r.Dictionary(board.optional(), r.String),
+    lane: r.Dictionary(lane.optional(), r.String),
+    card: r.Dictionary(card.optional(), r.String),
+    task: r.Dictionary(task.optional(), r.String),
+    category: r.Dictionary(category.optional(), r.String)
   }),
   active: r.Record({
     board: r.String.optional(),
-    drawer: r.String.optional()
+    drawer: r.Boolean.optional()
   })
 });
 

@@ -29,10 +29,10 @@ test('[entity.string] sets string property', t => {
   store.set(produce(actions.set('card')(card)));
 
   store.set(produce(actions.string('card')('title')(card.id)('title')));
-  t.equal(store.current.entity.card[card.id].title, 'title', 'sets title');
+  t.equal(store.current.entity.card[card.id]?.title, 'title', 'sets title');
 
   store.set(produce(actions.string('card')('title')(card.id)()));
-  t.false(store.current.entity.card[card.id].title, 'removes title');
+  t.false(store.current.entity.card[card.id]?.title, 'removes title');
 
   t.end();
 });
@@ -44,13 +44,13 @@ test('[entity.boolean] sets boolean property', t => {
   store.set(produce(actions.set('task')(task)));
 
   store.set(produce(actions.boolean('task')('done')(task.id)(true)));
-  t.true(store.current.entity.task[task.id].done, 'true');
+  t.true(store.current.entity.task[task.id]?.done, 'true');
 
   store.set(produce(actions.boolean('task')('done')(task.id)(false)));
-  t.false(store.current.entity.task[task.id].done, 'false');
+  t.false(store.current.entity.task[task.id]?.done, 'false');
 
   store.set(produce(actions.boolean('task')('done')(task.id)()));
-  t.true(store.current.entity.task[task.id].done, 'inverted');
+  t.true(store.current.entity.task[task.id]?.done, 'inverted');
 
   t.end();
 });
@@ -62,7 +62,7 @@ test('[entity.push] adds item to end of list', t => {
   store.set(produce(actions.set('board')(board)));
 
   store.set(produce(actions.push('board')('lanes')(board.id)('0')));
-  t.deepEqual(store.current.entity.board[board.id].lanes, ['1', '0'], 'pushes item');
+  t.deepEqual(store.current.entity.board[board.id]?.lanes, ['1', '0'], 'pushes item');
 
   t.end();
 });
@@ -74,7 +74,7 @@ test('[entity.unshift] adds item to start of list', t => {
   store.set(produce(actions.set('board')(board)));
 
   store.set(produce(actions.unshift('board')('lanes')(board.id)('0')));
-  t.deepEqual(store.current.entity.board[board.id].lanes, ['0', '1'], 'unshifts item');
+  t.deepEqual(store.current.entity.board[board.id]?.lanes, ['0', '1'], 'unshifts item');
 
   t.end();
 });
@@ -86,7 +86,7 @@ test('[entity.pull] removes item from list', t => {
   store.set(produce(actions.set('board')(board)));
 
   store.set(produce(actions.pull('board')('lanes')(board.id)('0')));
-  t.equal(store.current.entity.board[board.id].lanes.length, 0, 'removes item');
+  t.equal(store.current.entity.board[board.id]?.lanes.length, 0, 'removes item');
 
   t.end();
 });
@@ -100,7 +100,7 @@ test('[entity.move] moves item within list', t => {
   // [a, b, c, d, e] => [a, c, d, e, b]
   store.set(produce(actions.move('lane')('cards')(lane.id)('b')(4)));
   t.deepEqual(
-    store.current.entity.lane[lane.id].cards,
+    store.current.entity.lane[lane.id]?.cards,
     ['a', 'c', 'd', 'e', 'b'],
     'moves item'
   );
@@ -117,10 +117,10 @@ test('[entity.transfer] moves item between lists', t => {
   store.set(produce(actions.set('lane')(laneB)));
 
   store.set(produce(actions.transfer('lane')('cards')(laneA.id)(laneB.id)('b')));
-  t.equal(Object.keys(store.current.entity.lane[laneA.id].cards).length, 4, 'removes from lane');
-  t.false(store.current.entity.lane[laneA.id].cards.includes('b'), 'removes item');
-  t.equal(Object.keys(store.current.entity.lane[laneB.id].cards).length, 1, 'adds to lane');
-  t.true(store.current.entity.lane[laneB.id].cards.includes('b'), 'adds item');
+  t.equal(Object.keys(store.current.entity.lane[laneA.id]?.cards ?? []).length, 4, 'removes from lane');
+  t.false(store.current.entity.lane[laneA.id]?.cards.includes('b'), 'removes item');
+  t.equal(Object.keys(store.current.entity.lane[laneB.id]?.cards ?? []).length, 1, 'adds to lane');
+  t.true(store.current.entity.lane[laneB.id]?.cards.includes('b'), 'adds item');
 
   t.end();
 });

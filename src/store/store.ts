@@ -1,12 +1,9 @@
 import type { State } from './schema';
 
-import { produce } from 'immer';
-
 import Store from '../lib/store/store';
 import Storage from '../lib/storage/storage';
 import createDropzone from '../lib/dropzone/dropzone';
 
-import * as active from './actions/active';
 import { state as schema } from './schema';
 import uid from '../lib/string/uid';
 
@@ -41,13 +38,15 @@ const store = new Store<State>(storage.read() ?? {
 }, {
   subscribers: [
     ({ previous, current }) => {
-      if (typeof current.active.board === 'string') {
-        if (
-          previous?.active.board !== current.active.board ||
-          current.entity.board[current.active.board].title !== previous.entity.board[previous.active.board].title
-        ) document.title = `${current.entity.board[current.active.board].title} | Pebble`;
-      } else {
-        document.title = 'Pebble';
+      if (
+        previous?.active.board !== current.active.board ||
+        typeof current.active.board === 'string' &&
+        previous?.entity.board[current.active.board]?.title !== current.entity.board[current.active.board]?.title
+      ) {
+        const title = typeof current.active.board === 'string' && current.entity.board[current.active.board]?.title;
+        document.title = typeof title === 'string' ?
+          `${title} | Pebble` :
+          'Pebble';
       }
     }
   ]
@@ -55,14 +54,8 @@ const store = new Store<State>(storage.read() ?? {
   .on(state => storage.write(state.current))
   .on(console.log);
 
-console.log(store.current);
-
 document.addEventListener('keyup', event => {
   if (event.ctrlKey && event.key === 'z') store.undo();
-});
-
-document.addEventListener('keyup', event => {
-  if (event.key === 'Escape') store.set(produce(active.set('drawer')()));
 });
 
 createDropzone(raw => {

@@ -16,7 +16,7 @@ test('[board.lane] creates new lane', t => {
   const lanes = Object.keys(store.current.entity.lane);
 
   t.equal(lanes.length, 1, 'creates lane');
-  t.true(store.current.entity.board.a.lanes.includes(lanes[0]), 'board has lane');
+  t.true(store.current.entity.board.a?.lanes.includes(lanes[0]), 'board has lane');
 
   t.end();
 });
@@ -31,7 +31,7 @@ test('[board.move] moves lanes', t => {
 
   store.set(produce(actions.move('a')('b')(0)));
 
-  t.deepEqual(store.current.entity.board.a.lanes, ['b', 'a'], 'moves lanes');
+  t.deepEqual(store.current.entity.board.a?.lanes, ['b', 'a'], 'moves lanes');
 
   t.end();
 });

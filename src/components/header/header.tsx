@@ -10,36 +10,23 @@ import Icon from '../icon/icon';
 import HeaderTitle from './header-title/header-title';
 import HeaderBackground from './header-background/header-background';
 import * as actions from './header.actions';
-import selector from './header.state';
 
 import './header.scss';
 
-export type HeaderProps = {
-  drawer: string;
-};
+export type HeaderProps = {};
 
 const Header: Component<HeaderProps> = () => {
   const component = new forgo.Component<HeaderProps>({
-    render(props) {
-      const active = selector.state();
-
+    render() {
       return (
         <header>
           <div>
-            <button type="button" onclick={() => store.set(produce(actions.open(props.drawer)))}>
+            <button type="button" onclick={() => store.set(produce(actions.open))}>
               <Icon id='bars' />
               <span class='sr-only'>Open board drawer</span>
             </button>
             <HeaderTitle />
             <HeaderBackground />
-            <button
-              type='button'
-              disabled={!active}
-              onclick={() => store.set(produce(actions.remove))}
-            >
-              <span class='sr-only'>Remove active board</span>
-              <Icon id='trash' />
-            </button>
           </div>
           <div>
             <button type='button' onclick={() => store.undo()}>
@@ -55,8 +42,6 @@ const Header: Component<HeaderProps> = () => {
       );
     }
   });
-
-  selector.subscribe()(component);
 
   return component;
 };

@@ -21,7 +21,7 @@ test('[header-background.set] sets active board background', t => {
   }));
 
   store.set(produce(actions.set('background')));
-  t.equal(store.current.entity.board.a.background, 'background', 'sets background');
+  t.equal(store.current.entity.board.a?.background, 'background', 'sets background');
 
   t.end();
 });
@@ -40,7 +40,7 @@ test('[header-background.remove]', t => {
   }));
 
   store.set(produce(actions.remove));
-  t.false(store.current.entity.board.a.background, 'removes background');
+  t.false(store.current.entity.board.a?.background, 'removes background');
 
   t.end();
 });

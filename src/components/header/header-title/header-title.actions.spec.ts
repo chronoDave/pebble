@@ -21,10 +21,10 @@ test('[header-title.title] sets and removes board title', t => {
   }));
 
   store.set(produce(actions.title('title')));
-  t.equal(store.current.entity.board.a.title, 'title', 'sets title');
+  t.equal(store.current.entity.board.a?.title, 'title', 'sets title');
 
   store.set(produce(actions.title()));
-  t.false(store.current.entity.board.a.title, 'removes title');
+  t.false(store.current.entity.board.a?.title, 'removes title');
 
   t.end();
 });
