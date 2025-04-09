@@ -1,7 +1,6 @@
 import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
-import { produce } from 'immer';
 
 import store from '../../store/store';
 import download from '../../lib/input/download';
@@ -9,7 +8,6 @@ import Icon from '../icon/icon';
 
 import HeaderTitle from './header-title/header-title';
 import HeaderBackground from './header-background/header-background';
-import * as actions from './header.actions';
 
 import './header.scss';
 
@@ -21,7 +19,7 @@ const Header: Component<HeaderProps> = () => {
       return (
         <header>
           <div>
-            <button type="button" onclick={() => store.set(produce(actions.open))}>
+            <button type="button" onclick={() => document.querySelector('dialog')?.showModal()}>
               <Icon id='bars' />
               <span class='sr-only'>Open board drawer</span>
             </button>

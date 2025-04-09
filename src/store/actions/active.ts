@@ -9,10 +9,3 @@ export const board = (id?: string) =>
       delete draft.active.board;
     }
   };
-
-export const drawer = (open?: boolean) =>
-  (draft: Draft<State>) => {
-    draft.active.drawer = typeof open === 'boolean' ?
-      open :
-      !draft.active.drawer;
-  };

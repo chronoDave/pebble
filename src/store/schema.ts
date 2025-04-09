@@ -56,8 +56,7 @@ export const state = r.Record({
     category: r.Dictionary(category.optional(), r.String)
   }),
   active: r.Record({
-    board: r.String.optional(),
-    drawer: r.Boolean.optional()
+    board: r.String.optional()
   })
 });
 

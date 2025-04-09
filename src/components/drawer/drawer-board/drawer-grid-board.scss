@@ -1,0 +1,23 @@
+.drawer-board {
+  overflow: auto;
+  
+  [role="row"] {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &[aria-current="true"] {
+      background-color: var(--primary);
+      color: var(--primary-text);
+    }
+
+    [data-action="select"] {
+      padding: 0.5rem;
+    }
+
+    [data-action="delete"] {
+      padding: 0.5rem;
+    }
+  }
+}

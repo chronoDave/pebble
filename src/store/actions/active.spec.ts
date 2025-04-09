@@ -15,16 +15,3 @@ test('[active.board] sets / removes board', t => {
 
   t.end();
 });
-
-test('[active.drawer] opens / closes / toggles drawer', t => {
-  const store = createStore();
-
-  store.set(produce(actions.drawer(true)));
-  t.true(store.current.active.drawer, 'opens');
-  store.set(produce(actions.drawer(false)));
-  t.false(store.current.active.drawer, 'closes');
-  store.set(produce(actions.drawer()));
-  t.true(store.current.active.drawer, 'toggles');
-
-  t.end();
-});

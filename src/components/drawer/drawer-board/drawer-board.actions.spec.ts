@@ -20,7 +20,7 @@ test('[drawer-board.remove] removes board and sets next board as active', t => {
   t.end();
 });
 
-test('[drawer-board.active] sets active board and closes drawer', t => {
+test('[drawer-board.active] sets active board', t => {
   const store = createStore();
   store.set(produce(draft => {
     draft.active.board = 'board';
@@ -28,7 +28,6 @@ test('[drawer-board.active] sets active board and closes drawer', t => {
 
   store.set(produce(actions.active('board')));
   t.equal(store.current.active.board, 'board', 'sets board active');
-  t.false(store.current.active.drawer, 'closes drawer');
 
   t.end();
 });

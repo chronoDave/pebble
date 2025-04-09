@@ -1,44 +1,44 @@
 @use 'breakpoint';
 
 .drawer {
-  &[aria-hidden="true"] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--white);
+  padding: unset;
+  margin: unset;
+  border: unset;
+  max-width: min(40ch, 90vw);
+  min-height: 100vh;
+  max-height: 100vh;
+
+  &:not([open]) {
     display: none;
   }
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  isolation: isolate;
-  z-index: 20;
-  background-color: var(--black-alpha);
+  &::backdrop {
+    background-color: #000000aa;
+  }
 
-  .body {
+  > * {
+    padding: 1rem;
+  }
+
+  > header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  > section {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--white);
-    padding: 1rem;
-    max-width: min(40ch, 90vw);
-    min-height: 100vh;
-  }
+    flex-grow: 1;
+    overflow: auto;
 
-  .title {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-
-  h1 {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
-
-  ul + button {
-    margin-top: 0.5rem;
+    > * + * {
+      margin-top: 0.5rem;
+    }
   }
 }

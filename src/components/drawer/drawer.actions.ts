@@ -6,8 +6,6 @@ import join from '../../lib/fn/join';
 import * as entity from '../../store/actions/entity';
 import * as active from '../../store/actions/active';
 
-export const close = active.drawer(false);
-
 export const add = (draft: Draft<State>) => {
   const id = uid();
 
@@ -18,7 +16,6 @@ export const add = (draft: Draft<State>) => {
       lanes: [],
       categories: []
     }),
-    active.board(id),
-    close
+    active.board(id)
   )(draft);
 };

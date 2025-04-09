@@ -5,7 +5,7 @@ import createStore from '../../store/store.struct';
 
 import * as actions from './drawer.actions';
 
-test('[drawer-board.add] creates new board, sets board as active and closes drawer', t => {
+test('[drawer-board.add] creates new board and sets board as active', t => {
   const store = createStore();
 
   store.set(produce(actions.add));
@@ -13,7 +13,6 @@ test('[drawer-board.add] creates new board, sets board as active and closes draw
 
   t.equal(keys.length, 1, 'creates new board');
   t.equal(keys[0], store.current.active.board, 'sets active');
-  t.false(store.current.active.drawer, 'closes drawer');
 
   t.end();
 });
