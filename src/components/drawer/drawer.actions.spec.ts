@@ -1,7 +1,7 @@
 import test from 'tape';
 import { produce } from 'immer';
 
-import createStore from '../../store/store.struct';
+import createStore from '../../store/store.fixture';
 
 import * as actions from './drawer.actions';
 

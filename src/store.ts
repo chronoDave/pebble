@@ -1,17 +1,23 @@
-import type { State } from './schema';
+import type { State } from './store/schema';
 
-import Store from '../lib/store/store';
-import Storage from '../lib/storage/storage';
-import createDropzone from '../lib/dropzone/dropzone';
+import Store from './lib/store/store';
+import Storage from './lib/storage/storage';
+import createDropzone from './lib/dropzone/dropzone';
 
-import { state as schema } from './schema';
-import uid from '../lib/string/uid';
+import { state as schema } from './store/schema';
+import uid from './lib/string/uid';
+
+declare global {
+  interface Window {
+    store: Store<State>;
+  }
+}
 
 const board = uid();
 const lane = uid();
 
 const storage = new Storage('state', schema);
-const store = new Store<State>(storage.read() ?? {
+window.store = new Store<State>(storage.read() ?? {
   entity: {
     board: {
       [board]: {
@@ -55,17 +61,15 @@ const store = new Store<State>(storage.read() ?? {
   .on(console.log);
 
 document.addEventListener('keyup', event => {
-  if (event.ctrlKey && event.key === 'z') store.undo();
+  if (event.ctrlKey && event.key === 'z') window.store.undo();
 });
 
 createDropzone(raw => {
   try {
     const json = JSON.parse(raw);
     schema.check(json);
-    store.set(() => json);
+    window.store.set(() => json);
   } catch (err) {
     console.error(err);
   }
 });
-
-export default store;

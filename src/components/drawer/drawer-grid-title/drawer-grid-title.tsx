@@ -2,14 +2,14 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 
 import * as forgo from 'forgo';
 
-import selector from './drawer-board-title.state';
+import selector from './drawer-grid-title.state';
 
-export type DrawerBoardTitleProps = {
+export type DrawerBoardGridProps = {
   id: string;
 };
 
-const DrawerBoardTitle: Component<DrawerBoardTitleProps> = initial => {
-  const component = new forgo.Component<DrawerBoardTitleProps>({
+const DrawerGridTitle: Component<DrawerBoardGridProps> = initial => {
+  const component = new forgo.Component<DrawerBoardGridProps>({
     render(props) {
       return selector.state(props.id);
     }
@@ -20,4 +20,4 @@ const DrawerBoardTitle: Component<DrawerBoardTitleProps> = initial => {
   return component;
 };
 
-export default DrawerBoardTitle;
+export default DrawerGridTitle;

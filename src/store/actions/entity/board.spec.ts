@@ -1,12 +1,13 @@
 import test from 'tape';
 import { produce } from 'immer';
 
-import createStore from '../../store.struct';
+import createStore from '../../store.fixture';
 
 import * as actions from './board';
 
 test('[board.remove] removes board and associated categories, lanes, cards, tasks', t => {
   const store = createStore();
+  
   store.set(produce(draft => {
     draft.entity.task.task = { id: 'task' };
     draft.entity.task.a = { id: 'a' };

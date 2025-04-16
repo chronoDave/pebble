@@ -1,12 +1,13 @@
 import test from 'tape';
 import { produce } from 'immer';
 
-import createStore from '../../store/store.struct';
+import createStore from '../../store/store.fixture';
 
 import * as actions from './card.actions';
 
 test('[card.title] sets / removes card title', t => {
   const store = createStore();
+
   store.set(produce(draft => {
     draft.entity.card.a = { id: 'a', tasks: [], categories: [] };
   }));
@@ -22,6 +23,7 @@ test('[card.title] sets / removes card title', t => {
 
 test('[card.description] sets / removes card description', t => {
   const store = createStore();
+
   store.set(produce(draft => {
     draft.entity.card.a = { id: 'a', tasks: [], categories: [] };
   }));
@@ -37,6 +39,7 @@ test('[card.description] sets / removes card description', t => {
 
 test('[card.category.pull] pulls category from card', t => {
   const store = createStore();
+
   store.set(produce(draft => {
     draft.entity.card.a = { id: 'a', tasks: [], categories: ['a'] };
     draft.entity.category.a = { id: 'a' };

@@ -8,7 +8,7 @@ import type {
 import test from 'tape';
 import { produce } from 'immer';
 
-import createStore from '../store.struct';
+import createStore from '../store.fixture';
 
 import * as actions from './entity';
 

@@ -8,7 +8,6 @@ import Icon from '../icon/icon';
 import CollapseTags from './collapse-tags/collapse-tags';
 import CollapseButton from '../collapse-button/collapse-button';
 import Tasklist from '../tasklist/tasklist';
-import store from '../../store/store';
 
 import Contextmenu from './card.contextmenu';
 import Tag from './tag/tag';
@@ -43,7 +42,7 @@ const Card: Component<CardProps> = initial => {
               {...contentEditable}
               onblur={event => {
                 const title = (event.target as HTMLHeadingElement).innerText;
-                if (card.title !== title) store.set(produce(actions.title(props.id)(title)));
+                if (card.title !== title) window.store.set(produce(actions.title(props.id)(title)));
               }}
             >
               {card.title ?? 'New card'}
@@ -63,7 +62,7 @@ const Card: Component<CardProps> = initial => {
                   const tag = button?.closest<HTMLElement>('.tag');
 
                   if (button?.dataset.action === 'delete' && tag) {
-                    store.set(produce(actions.category(card.id).pull(tag.id)));
+                    window.store.set(produce(actions.category(card.id).pull(tag.id)));
                     event.stopPropagation();
                   }
                 }}
@@ -86,7 +85,7 @@ const Card: Component<CardProps> = initial => {
             {...contentEditable}
             onblur={event => {
               const description = (event.target as HTMLHeadingElement).innerText;
-              if (card.description !== description) store.set(produce(actions.description(props.id)(description)));
+              if (card.description !== description) window.store.set(produce(actions.description(props.id)(description)));
             }}
           >
             {card.description ?? 'New description'}

@@ -4,9 +4,8 @@ import * as forgo from 'forgo';
 import { produce } from 'immer';
 
 import Icon from '../icon/icon';
-import store from '../../store/store';
 
-import DrawerBoard from './drawer-board/drawer-board';
+import DrawerGrid from './drawer-grid/drawer-grid';
 import * as actions from './drawer.actions';
 import './drawer.scss';
 
@@ -36,10 +35,10 @@ const Drawer: Component<DrawerProps> = () => {
           </header>
           <section>
             <h2 id='drawer-board-title'>Boards</h2>
-            <DrawerBoard id='drawer-board' />
+            <DrawerGrid />
             <button
               type='button'
-              onclick={() => store.set(produce(actions.add))}
+              onclick={() => window.store.set(produce(actions.add))}
             >
               <Icon id='plus' />
               Add board

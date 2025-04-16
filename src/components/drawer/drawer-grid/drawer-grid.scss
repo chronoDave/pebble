@@ -1,4 +1,4 @@
-.drawer-board {
+#drawer-grid {
   overflow: auto;
   
   [role="row"] {
@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
 
-    &[aria-current="true"] {
+    &[aria-selected="true"] {
       background-color: var(--primary);
       color: var(--primary-text);
     }

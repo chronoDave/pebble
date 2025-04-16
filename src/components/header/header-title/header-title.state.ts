@@ -1,6 +1,4 @@
-import store from '../../../store/store';
-
-export default store.select(state =>
+export default window.store.select(state =>
   () => {
     const id = state?.active.board;
     if (typeof id !== 'string') return null;

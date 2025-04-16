@@ -3,26 +3,25 @@ import path from 'path';
 import fsp from 'fs/promises';
 import sass from '@chronocide/esbuild-plugin-sass';
 
+import { assets } from './lib/dir.js';
 import log from './plugins/log.js';
-import clean from './plugins/clean.js';
 
-const args = process.argv.slice(2);
-const watch = args.includes('-w');
+const watch = process.argv.slice(2).includes('-w');
 const outdir = path.resolve(process.cwd(), watch ? 'build' : 'docs');
 
-const assets = async root => {
-  const files = await fsp.readdir(root, { recursive: true });
-
-  return files
-    .filter(file => /\..*$/ui.test(file))
-    .map(file => {
-      const x = path.normalize(file);
-
-      return { in: path.join(root, x), out: x.replace(/\..*/ui, '') };
-    });
+const common = {
+  define: {
+    IS_JSDOM: 'false'
+  },
+  bundle: true,
+  minify: !watch,
+  metafile: true,
+  sourcemap: watch,
+  outdir
 };
 
-const config = {
+const configs = [{
+  ...common,
   entryPoints: [
     'src/index.html',
     'src/index.tsx',
@@ -35,15 +34,8 @@ const config = {
     '.svg': 'copy',
     '.json': 'copy'
   },
-  bundle: true,
-  minify: !watch,
-  metafile: true,
-  sourcemap: watch,
-  platform: 'browser',
-  outdir,
   plugins: [
-    clean,
-    log,
+    log('index'),
     sass({
       minify: !watch,
       depedencies: ['src/scss/lib'],
@@ -52,16 +44,20 @@ const config = {
       }
     })
   ]
-};
+}, {
+  ...common,
+  entryPoints: ['src/store.ts'],
+  plugins: [log('store')]
+}];
 
+await fsp.rm(outdir, { recursive: true, force: true });
 if (watch) {
-  const context = await esbuild.context(config);
-  context.watch();
+  const contexts = await Promise.all(configs.map(config => esbuild.context(config)));
+  contexts.forEach(context => context.watch());
 } else {
-  const result = await esbuild.build(config);
-
-  await fsp.writeFile(
+  const results = await Promise.all(configs.map(config => esbuild.build(config)));
+  await Promise.all(results.map(result => fsp.writeFile(
     path.join(outdir, 'build.meta.json'),
     JSON.stringify(result.metafile)
-  );
+  )));
 }

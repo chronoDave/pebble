@@ -1,11 +1,9 @@
-import store from '../../../store/store';
-
 export type State = {
   boards: string[];
   active?: string;
 };
 
-export default store.select<never, State>(
+export default window.store.select<never, State>(
   state => () => ({
     active: state?.active.board,
     boards: state?.entity.board ? Object.keys(state.entity.board) : []

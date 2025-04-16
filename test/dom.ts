@@ -1,22 +1,16 @@
-import * as forgo from 'forgo';
 import { JSDOM } from 'jsdom';
 
-export default () => {
-  const dom = new JSDOM();
+import createStore from '../src/store/store.fixture';
 
-  forgo.setCustomEnv({
-    window: dom.window,
-    document: dom.window.document
-  });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default (raw: any) => {
+  const { window } = new JSDOM('<body></body>', { runScripts: 'dangerously' });
+  window.store = createStore();
 
-  // @ts-expect-error: TS2322, Override global window
-  global.window = dom.window;
-  global.document = dom.window.document;
-  global.HTMLAnchorElement = dom.window.HTMLAnchorElement;
-  global.HTMLInputElement = dom.window.HTMLInputElement;
-  global.HTMLButtonElement = dom.window.HTMLButtonElement;
-  global.HTMLSelectElement = dom.window.HTMLSelectElement;
-  global.HTMLTextAreaElement = dom.window.HTMLTextAreaElement;
+  const script = window.document.createElement('script');
+  script.textContent = raw.default;
+  window.document.body.appendChild(script);
+  const root = window.document.body.childNodes.item(0) as HTMLElement;
 
-  return dom;
+  return { window, document: window.document, root };
 };

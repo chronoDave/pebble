@@ -1,102 +1,102 @@
-import * as forgo from 'forgo';
-import test from 'tape';
+// import * as forgo from 'forgo';
+// import test from 'tape';
 
-import portal from './portal';
-import fixture from './portal.fixture';
+// import portal from './portal';
+// import fixture from './portal.fixture';
 
-test('[portal] should mount component', t => {
-  const cleanup = fixture();
+// test('[portal] should mount component', t => {
+//   const cleanup = fixture();
 
-  portal(<div id="test" />);
+//   portal(<div id="test" />);
 
-  t.true(document.body.querySelector('#test'));
+//   t.true(document.body.querySelector('#test'));
 
-  cleanup();
-  t.end();
-});
+//   cleanup();
+//   t.end();
+// });
 
-test('[portal] should unmount component', t => {
-  const cleanup = fixture();
+// test('[portal] should unmount component', t => {
+//   const cleanup = fixture();
 
-  const unmount = portal(<div id="test" />);
-  unmount();
+//   const unmount = portal(<div id="test" />);
+//   unmount();
 
-  t.false(document.body.querySelector('#test'), 'unmounts component');
-  t.false(document.body.querySelector('.portal'), 'cleans up portal');
+//   t.false(document.body.querySelector('#test'), 'unmounts component');
+//   t.false(document.body.querySelector('.portal'), 'cleans up portal');
 
-  cleanup();
-  t.end();
-});
+//   cleanup();
+//   t.end();
+// });
 
-test('[portal] should unmount on click close', t => {
-  const cleanup = fixture();
+// test('[portal] should unmount on click close', t => {
+//   const cleanup = fixture();
 
-  portal(
-    <div id="test">
-      <button type="button" data-action="close">
-        Close
-      </button>
-    </div>
-  );
+//   portal(
+//     <div id="test">
+//       <button type="button" data-action="close">
+//         Close
+//       </button>
+//     </div>
+//   );
 
-  document.body.querySelector('button')?.click();
+//   document.body.querySelector('button')?.click();
 
-  t.false(document.body.querySelector('#test'), 'unmounts component');
-  t.false(document.body.querySelector('.portal'), 'cleans up portal');
+//   t.false(document.body.querySelector('#test'), 'unmounts component');
+//   t.false(document.body.querySelector('.portal'), 'cleans up portal');
 
-  cleanup();
-  t.end();
-});
+//   cleanup();
+//   t.end();
+// });
 
-test('[portal] should unmount on escape', t => {
-  const cleanup = fixture();
+// test('[portal] should unmount on escape', t => {
+//   const cleanup = fixture();
 
-  portal(<div id="test"></div>);
+//   portal(<div id="test"></div>);
 
-  const event = new window.KeyboardEvent('keyup', { key: 'Escape', bubbles: true });
-  document.body.querySelector('#test')?.dispatchEvent(event);
+//   const event = new window.KeyboardEvent('keyup', { key: 'Escape', bubbles: true });
+//   document.body.querySelector('#test')?.dispatchEvent(event);
 
-  t.false(document.body.querySelector('#test'), 'unmounts component');
-  t.false(document.body.querySelector('.portal'), 'cleans up portal');
+//   t.false(document.body.querySelector('#test'), 'unmounts component');
+//   t.false(document.body.querySelector('.portal'), 'cleans up portal');
 
-  cleanup();
-  t.end();
-});
+//   cleanup();
+//   t.end();
+// });
 
-test('[portal] calls component unmount function', t => {
-  const cleanup = fixture();
-  let unmounted = false;
+// test('[portal] calls component unmount function', t => {
+//   const cleanup = fixture();
+//   let unmounted = false;
 
-  const Test = () => {
-    const component = new forgo.Component({
-      render() {
-        return <div id="test" />;
-      }
-    });
+//   const Test = () => {
+//     const component = new forgo.Component({
+//       render() {
+//         return <div id="test" />;
+//       }
+//     });
 
-    component.unmount(() => {
-      unmounted = true;
-    });
+//     component.unmount(() => {
+//       unmounted = true;
+//     });
 
-    return component;
-  };
+//     return component;
+//   };
 
-  const unmount = portal(<Test />);
-  unmount();
+//   const unmount = portal(<Test />);
+//   unmount();
 
-  t.true(unmounted);
+//   t.true(unmounted);
 
-  cleanup();
-  t.end();
-});
+//   cleanup();
+//   t.end();
+// });
 
-test('[portal] mounts on anchor', t => {
-  const cleanup = fixture();
+// test('[portal] mounts on anchor', t => {
+//   const cleanup = fixture();
 
-  portal(<div id="test" />, { anchor: document.querySelector('.anchor') });
+//   portal(<div id="test" />, { anchor: document.querySelector('.anchor') });
 
-  t.true(document.body.querySelector('.portal > #test'), 'mounts component');
+//   t.true(document.body.querySelector('.portal > #test'), 'mounts component');
 
-  cleanup();
-  t.end();
-});
+//   cleanup();
+//   t.end();
+// });

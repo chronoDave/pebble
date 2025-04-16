@@ -3,7 +3,6 @@ import type { ForgoNewComponentCtor as Component } from 'forgo';
 import * as forgo from 'forgo';
 import { produce } from 'immer';
 
-import store from '../../store/store';
 import Lane from '../lane/lane';
 import Icon from '../icon/icon';
 
@@ -82,7 +81,7 @@ const Board: Component<BoardProps> = () => {
               const to = (event.target as HTMLElement).closest('.lane')?.id;
               const i = Array.from(document.querySelectorAll('.lane').values()).findIndex(el => el.id === to);
 
-              if (typeof id === 'string') store.set(produce(actions.move(board.id)(id)(i)));
+              if (typeof id === 'string') window.store.set(produce(actions.move(board.id)(id)(i)));
             }
           }}
         >
@@ -96,7 +95,7 @@ const Board: Component<BoardProps> = () => {
               <div class='lane'>
                 <button
                   type='button'
-                  onclick={() => store.set(produce(actions.lane(board.id)))}
+                  onclick={() => window.store.set(produce(actions.lane(board.id)))}
                 >
                   <Icon id='plus' />
                   Add lane

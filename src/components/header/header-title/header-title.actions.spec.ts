@@ -3,12 +3,13 @@ import type { Board } from '../../../store/schema';
 import test from 'tape';
 import { produce } from 'immer';
 
-import createStore from '../../../store/store.struct';
+import createStore from '../../../store/store.fixture';
 
 import * as actions from './header-title.actions';
 
 test('[header-title.title] sets and removes board title', t => {
   const store = createStore();
+
   store.set(produce(draft => {
     const board: Board = {
       id: 'a',

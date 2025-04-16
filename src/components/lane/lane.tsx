@@ -7,7 +7,6 @@ import contentEditable from '../../lib/contentEditable/contentEditable';
 import Card from '../card/card';
 import Icon from '../icon/icon';
 import Contextmenu from '../contextmenu/contextmenu';
-import store from '../../store/store';
 
 import selector from './lane.state';
 import * as actions from './lane.actions';
@@ -33,7 +32,7 @@ const Lane: Component<LaneProps> = initial => {
                 onblur={event => {
                   const title = (event.target as HTMLHeadingElement).innerText;
 
-                  if (title !== lane.title) store.set(produce(actions.title(lane.id)(title)));
+                  if (title !== lane.title) window.store.set(produce(actions.title(lane.id)(title)));
                 }}
               >
                 {lane.title ?? 'New lane'}
@@ -43,7 +42,7 @@ const Lane: Component<LaneProps> = initial => {
             <div class='actions'>
               <button
                 type='button'
-                onclick={() => store.set(produce(actions.card(lane.id).unshift))}
+                onclick={() => window.store.set(produce(actions.card(lane.id).unshift))}
               >
                 <Icon id='plus' />
                 <span class='sr-only'>Add card</span>
@@ -87,7 +86,7 @@ const Lane: Component<LaneProps> = initial => {
               const card = button?.closest<HTMLElement>('.card');
 
               if (button?.dataset.action === 'delete' && card) {
-                store.set(produce(actions.card(lane.id).remove(card.id)));
+                window.store.set(produce(actions.card(lane.id).remove(card.id)));
               }
             }}
           >
@@ -99,7 +98,7 @@ const Lane: Component<LaneProps> = initial => {
             <li>
               <button
                 type='button'
-                onclick={() => store.set(produce(actions.card(lane.id).push))}
+                onclick={() => window.store.set(produce(actions.card(lane.id).push))}
               >
                 <Icon id='plus' />
                 Add card

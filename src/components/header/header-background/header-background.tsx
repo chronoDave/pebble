@@ -5,7 +5,6 @@ import { produce } from 'immer';
 
 import image from '../../../lib/input/image';
 import Icon from '../../icon/icon';
-import store from '../../../store/store';
 
 import selector from './header-background.state';
 import * as actions from './header-background.actions';
@@ -20,10 +19,9 @@ const HeaderBackground: Component<HeaderBackgroundProps> = () => {
       return (
         <button
           type='button'
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onclick={async () => {
-            if (typeof bg === 'string') return store.set(produce(actions.remove));
-            store.set(produce(actions.set(await image())));
+            if (typeof bg === 'string') return window.store.set(produce(actions.remove));
+            window.store.set(produce(actions.set(await image())));
           }}
         >
           <span class='sr-only'>{bg === null ? 'Add' : 'remove'} background image</span>

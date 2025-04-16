@@ -1,10 +1,8 @@
 import type { Component } from 'forgo';
 
-export type Listener<T extends keyof DocumentEventMap> = (event: DocumentEventMap[T]) => void;
-
 export const subscribe = <T extends keyof DocumentEventMap>(
   type: T,
-  listener: Listener<T>,
+  listener: (event: DocumentEventMap[T]) => void,
   options?: AddEventListenerOptions
 ) => <S extends object>(component: Component<S>) => {
   component.mount(() => {
