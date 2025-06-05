@@ -1,6 +1,0 @@
-@use 'shadow';
-
-@mixin card() {
-  border-radius: 0.25rem;
-  box-shadow: shadow.box(1);
-}

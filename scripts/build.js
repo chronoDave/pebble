@@ -44,10 +44,6 @@ const configs = [{
       }
     })
   ]
-}, {
-  ...common,
-  entryPoints: ['src/store.ts'],
-  plugins: [log('store')]
 }];
 
 await fsp.rm(outdir, { recursive: true, force: true });
