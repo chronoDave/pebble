@@ -38,7 +38,7 @@ const configs = [{
     log('index'),
     sass({
       minify: !watch,
-      depedencies: ['src/scss/lib'],
+      depedencies: ['src/styles/lib'],
       deprecations: {
         ignore: ['mixed-decls']
       }
