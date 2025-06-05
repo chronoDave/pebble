@@ -10,6 +10,8 @@ import './index.scss';
 createDragFocus();
 forgo.mount([
   <Header />,
-  <Board />,
-  <Drawer />
+  <main>
+    <Board />
+    <Drawer />
+  </main>
 ], document.body);

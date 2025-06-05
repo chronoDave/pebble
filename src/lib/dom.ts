@@ -5,3 +5,6 @@ export const attribute = (key: string) =>
 
     return x;
   };
+
+export const getElementById = <T extends HTMLElement>(id: string): T | null =>
+  document.getElementById(id) as T | null;

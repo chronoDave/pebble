@@ -20,7 +20,7 @@ const Board: Component<BoardProps> = () => {
 
       if (!board) return null;
       return [
-        <main
+        <div
           class='board'
           ondragstart={event => {
             const root = event.target as HTMLElement;
@@ -103,7 +103,7 @@ const Board: Component<BoardProps> = () => {
               </div>
             </li>
           </ol>
-        </main>,
+        </div>,
         <div class='bg'>
           {typeof board.background === 'string' ? (
             <img

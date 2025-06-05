@@ -15,12 +15,7 @@ const Drawer: Component<DrawerProps> = () => {
   const component = new forgo.Component<DrawerProps>({
     render() {
       return (
-        <dialog
-          id='drawer'
-          class='drawer'
-          role="dialog"
-          aria-labelledby='drawer-title'
-        >
+        <dialog id='drawer' class='drawer'>
           <header>
             <img src='./icons/logo.svg' width={32} height={32} />
             <h1>Pebble</h1>
