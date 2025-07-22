@@ -1,5 +1,7 @@
 import { svg } from '@chronocide/hyper';
 
+import './icon.scss';
+
 export type Icon = {
   id: string;
   viewBox: string;

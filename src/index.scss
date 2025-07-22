@@ -1,7 +1,4 @@
 @use './styles/theme.scss';
 @use './styles/typography.scss';
-@use './styles/layout.scss';
+@use './styles/root.scss';
 @use './styles/global.scss';
-
-@use './styles/components/button.scss';
-@use './styles/components/button-icon.scss';
