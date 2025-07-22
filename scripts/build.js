@@ -3,39 +3,22 @@ import path from 'path';
 import fsp from 'fs/promises';
 import sass from '@chronocide/esbuild-plugin-sass';
 
-import { assets } from './lib/dir.js';
 import log from './plugins/log.js';
 
 const watch = process.argv.slice(2).includes('-w');
 const outdir = path.resolve(process.cwd(), watch ? 'build' : 'docs');
 
-const common = {
-  define: {
-    IS_JSDOM: 'false'
-  },
+const configs = [{
+  entryPoints: [
+    'src/index.ts'
+  ],
+  outdir,
   bundle: true,
   minify: !watch,
-  metafile: true,
+  metafile: watch,
   sourcemap: watch,
-  outdir
-};
-
-const configs = [{
-  ...common,
-  entryPoints: [
-    'src/index.html',
-    'src/index.ts',
-    ...await assets('src/assets')
-  ],
-  loader: {
-    '.html': 'copy',
-    '.png': 'copy',
-    '.ico': 'copy',
-    '.svg': 'copy',
-    '.json': 'copy'
-  },
   plugins: [
-    log('index'),
+    log('esbuild'),
     sass({
       minify: !watch,
       deprecations: {
@@ -46,6 +29,9 @@ const configs = [{
 }];
 
 await fsp.rm(outdir, { recursive: true, force: true });
+await fsp.cp(path.resolve(process.cwd(), 'src/assets'), outdir, { recursive: true });
+await fsp.cp(path.resolve(process.cwd(), 'src/index.html'), path.resolve(outdir, 'index.html'));
+
 if (watch) {
   const contexts = await Promise.all(configs.map(config => esbuild.context(config)));
   contexts.forEach(context => context.watch());
