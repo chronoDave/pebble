@@ -24,7 +24,7 @@ const configs = [{
   ...common,
   entryPoints: [
     'src/index.html',
-    'src/index.tsx',
+    'src/index.ts',
     ...await assets('src/assets')
   ],
   loader: {
@@ -38,7 +38,6 @@ const configs = [{
     log('index'),
     sass({
       minify: !watch,
-      depedencies: ['src/styles/lib'],
       deprecations: {
         ignore: ['mixed-decls']
       }
