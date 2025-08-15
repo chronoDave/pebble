@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "jsxFactory": "forgo.createElement",
-    "jsxFragmentFactory": "forgo.Fragment",
+    "lib": ["ESNext", "DOM"],
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "allowImportingTsExtensions": true,
+
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "declaration": true,
+
+    "noEmit": true,
     "outDir": "./test/build"
   },
   "include": [

@@ -11,7 +11,7 @@ body {
   grid-template-rows: auto 1fr auto;
   width: 100%;
   margin: 0;
-  height: 100dvh;
+  min-height: 100dvh;
   overflow: hidden;
   background-color: var(--white-alt);
 }

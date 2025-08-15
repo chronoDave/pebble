@@ -8,9 +8,7 @@
     "lint": "eslint src",
     "start": "node scripts/build.js -w",
     "build": "node scripts/build.js",
-    "build:test": "node scripts/test.js",
-    "test:dom": "node scripts/dom.js",
-    "test": "npm run build:test && tape build/test/**/*.spec.js"
+    "test": "node --experimental-strip-types --no-warnings --test src/**/*.spec.ts"
   },
   "author": "Chronocide",
   "license": "AGPL-3.0-only",
