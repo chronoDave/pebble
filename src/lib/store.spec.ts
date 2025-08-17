@@ -17,15 +17,15 @@ test('[store.undo] set previous state', () => {
   store.undo();
   assert.equal(store.state, state, 'does not revert to null');
 
-  store.update(() => ({ a: 'b' }));
+  store.set(() => ({ a: 'b' }));
   store.undo();
 
   assert.equal(store.state, state);
 });
 
-test('[store.update] dispatches subscribers', () => {
+test('[store.set] dispatches subscribers', () => {
   const store = new Store({ a: 1 });
-  store.update(state => ({ a: state.a + 1 }));
+  store.set(state => ({ a: state.a + 1 }));
 
   assert.equal(store.state.a, 2);
 });
@@ -36,7 +36,7 @@ test('[store.on] adds subscriber', () => {
   const store = new Store({ a: 1 });
   store
     .on(() => { n += 1; })
-    .update(state => ({ a: state.a + 1 }));
+    .set(state => ({ a: state.a + 1 }));
 
   assert.equal(store.state.a, 2);
   assert.equal(n, 1);
@@ -51,7 +51,7 @@ test('[store.off] adds subscriber', () => {
   store
     .on(subscriber)
     .off(subscriber)
-    .update(state => ({ a: state.a + 1 }));
+    .set(state => ({ a: state.a + 1 }));
 
   assert.equal(n, 0);
 });

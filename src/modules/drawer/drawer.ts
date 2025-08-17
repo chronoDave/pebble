@@ -1,20 +1,17 @@
 import h from '@chronocide/hyper';
 
-import modal from '../../components/modal/modal.ts';
-
-import listBoard from './components/list-board.ts';
-import buttonBoard from './components/button-board.ts';
+import boardList from './components/drawer-board-list.ts';
+import boardButton from './components/drawer-board-button.ts';
+import modal from './components/drawer-modal.ts';
 
 import './drawer.scss';
 
-const drawer = modal({ title: 'Pebble' });
-
-drawer.classList.add('drawer');
-drawer.append(
+modal.classList.add('drawer');
+modal.append(
   h('section')()(
     h('h2')()('Boards'),
-    listBoard,
-    buttonBoard
+    boardList,
+    boardButton
   ),
   h('footer')()(
     h('p')()('Made by ', h('a')({ href: 'https://chronocide.neocities.org/' })('Chronocide'), '.'),
@@ -23,4 +20,4 @@ drawer.append(
   )
 );
 
-export default drawer;
+export default modal;

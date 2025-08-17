@@ -2,6 +2,11 @@ import type { State } from './schema.ts';
 
 import Store from '../lib/store.ts';
 
-export default new Store<State>({
-  board: {}
+const store = new Store<State>({
+  board: {},
+  lane: {}
 });
+
+store.on(console.log);
+
+export default store;

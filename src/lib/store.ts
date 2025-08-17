@@ -42,7 +42,7 @@ export default class Store<S extends object> {
     return this._update();
   }
 
-  update(reducer: Reducer<S>): this {
+  set(reducer: Reducer<S>): this {
     this._stack.push(reducer(this.state));
 
     return this._update();
