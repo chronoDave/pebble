@@ -7,8 +7,13 @@ import { maybe } from '../../../lib/fn.ts';
 import * as selector from '../../../state/selector.ts';
 import lane from '../../lane/lane.ts';
 
+import './board-lane-list.scss';
+
 export default (board: Board) => {
-  const ol = h('ol')({ hidden: board.lanes.length === 0 })();
+  const ol = h('ol')({
+    hidden: board.lanes.length === 0,
+    class: 'board-lanes'
+  })();
   const update = list(lane)(ol);
 
   update(board.lanes); // Push lanes into cache

@@ -6,8 +6,7 @@ const store = new Store<State>({
   board: {},
   lane: {},
   card: {}
-})
-  .on(console.log);
+});
 
 export default store;
 

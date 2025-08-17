@@ -1,7 +1,6 @@
 import h from '@chronocide/hyper';
 
-import buttonIcon from '../button-icon/button-icon.ts';
-import { xmark } from '../icon/icon.ts';
+import { xmark } from '../button-icon/button-icon.ts';
 
 import './modal.scss';
 
@@ -10,11 +9,7 @@ export type ModalProps = {
 }
 
 export default (props: ModalProps) => {
-  const button = buttonIcon({
-    icon: xmark(),
-    label: 'Close'
-  });
-
+  const button = xmark('Close');
   const modal = h('dialog')({ class: 'modal' })(
     h('header')()(
       h('h1')()(props.title),

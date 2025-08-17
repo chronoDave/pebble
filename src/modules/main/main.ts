@@ -3,6 +3,8 @@ import h from '@chronocide/hyper';
 import { subscribe } from '../../state/store.ts';
 import board from '../board/board.ts';
 
+import './main.scss';
+
 const main = h('main')()('No board selected');
 
 subscribe((current, previous) => previous?.active !== current.active)
