@@ -4,10 +4,13 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.6.0"
+  },
   "scripts": {
     "lint": "eslint src",
-    "start": "node scripts/build.js -w",
-    "build": "node scripts/build.js",
+    "start": "node --experimental-strip-types --no-warnings scripts/build.ts -w",
+    "build": "node --experimental-strip-types --no-warnings scripts/build.ts",
     "test": "node --experimental-strip-types --no-warnings --test src/**/*.spec.ts"
   },
   "author": "Chronocide",

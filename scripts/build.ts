@@ -3,7 +3,7 @@ import path from 'path';
 import fsp from 'fs/promises';
 import sass from '@chronocide/esbuild-plugin-sass';
 
-import log from './plugins/log.js';
+import log from './plugins/log.ts';
 
 const watch = process.argv.slice(2).includes('-w');
 const outdir = path.resolve(process.cwd(), watch ? 'build' : 'docs');
