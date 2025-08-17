@@ -1,10 +1,16 @@
 import Stack from './stack.ts';
 
-export type View<S extends object> = { previous: S | null, current: S };
-export type Subscriber<S extends object> = (view: View<S>) => void;
+export type Subscriber<S extends object> = (current: S, previous: S | null) => void;
 export type Reducer<S extends object> = (state: S) => S;
 
 export default class Store<S extends object> {
+  static subscribe<S extends object>(store: Store<S>) {
+    return (shouldUpdate: (current: S, previous: S | null) => boolean) =>
+      (subscriber: Subscriber<S>) => store.on((current, previous) => {
+        if (shouldUpdate(current, previous)) subscriber(current, previous);
+      });
+  }
+
   private readonly _stack: Stack<S>;
   private readonly _subscribers: Set<Subscriber<S>>;
 
@@ -20,10 +26,7 @@ export default class Store<S extends object> {
   }
 
   private _update(): this {
-    this._subscribers.forEach(subscriber => subscriber({
-      previous: this._previous,
-      current: this.state
-    }));
+    this._subscribers.forEach(subscriber => subscriber(this.state, this._previous));
 
     return this;
   }

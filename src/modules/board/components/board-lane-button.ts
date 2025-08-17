@@ -10,13 +10,13 @@ const button = h('button')({ type: 'button' })(
   'Add lane'
 );
 
-const add = () => store.set(produce(draft => {
-  const id = uid();
+button.addEventListener('click', () => {
+  store.set(produce(draft => {
+    const id = uid();
 
-  draft.lane[id] = { id, title: 'New lane' };
-  if (typeof draft.active === 'string') draft.board[draft.active].lanes.push(id);
-}));
-
-button.addEventListener('click', add, { passive: true });
+    draft.lane[id] = { id, title: 'New lane', cards: [] };
+    if (typeof draft.active === 'string') draft.board[draft.active].lanes.push(id);
+  }))
+}, { passive: true });
 
 export default button;

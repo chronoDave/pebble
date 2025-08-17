@@ -2,8 +2,9 @@ import type { Board } from '../../../state/schema.ts';
 
 import { produce } from 'immer';
 import h, { list } from '@chronocide/hyper';
+import fde from 'fast-deep-equal';
 
-import store from '../../../state/store.ts';
+import store, { subscribe } from '../../../state/store.ts';
 
 import modal from './drawer-modal.ts';
 
@@ -28,7 +29,7 @@ const update = list<Board>(board => h('li')()(
   })(board.title)
 ))(ul);
 
-store.on(({ current }) => {
+subscribe((current, previous) => !fde(current.board, previous?.board))(current => {
   ul.toggleAttribute('hidden', Object.values(current.board).length === 0)
   update(Object.values(current.board));
 });

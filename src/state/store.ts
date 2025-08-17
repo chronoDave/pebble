@@ -4,9 +4,11 @@ import Store from '../lib/store.ts';
 
 const store = new Store<State>({
   board: {},
-  lane: {}
-});
-
-store.on(console.log);
+  lane: {},
+  card: {}
+})
+  .on(console.log);
 
 export default store;
+
+export const subscribe = Store.subscribe(store);
