@@ -6,18 +6,10 @@ import store from '../../../state/store.ts';
 import * as create from '../../../state/actions/create.ts';
 
 export default (id: string) => {
-  const button = h('button')({ type: 'button' })(
-    plus(),
-    'Add card'
-  );
+  const button = h('button')({ type: 'button' })(plus(), 'Add card');
 
   button.addEventListener('click', () => {
-    store.set(produce(draft => {
-      const card = create.card();
-
-      draft.card[card.id] = card;
-      draft.lane[id].cards.push(card.id);
-    }))
+    store.set(produce(create.card(id)))
   }, { passive: true });
 
   return button;

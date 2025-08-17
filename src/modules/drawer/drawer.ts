@@ -1,7 +1,7 @@
 import h from '@chronocide/hyper';
 
 import boardList from './components/drawer-board-list.ts';
-import boardButton from './components/drawer-board-button.ts';
+import boardAdd from './components/drawer-board-add.ts';
 import modal from './components/drawer-modal.ts';
 
 import './drawer.scss';
@@ -11,7 +11,7 @@ modal.append(
   h('section')()(
     h('h2')()('Boards'),
     boardList,
-    boardButton
+    boardAdd
   ),
   h('footer')()(
     h('p')()('Made by ', h('a')({ href: 'https://chronocide.neocities.org/' })('Chronocide'), '.'),
