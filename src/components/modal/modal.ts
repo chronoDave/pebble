@@ -5,15 +5,15 @@ import { xmark } from '../icon/icon.ts';
 
 import './modal.scss';
 
-export type ModalProps = {
+export type Attributes = {
   title: string;
 };
 
-export default (props: ModalProps) => {
+export default (attributes: Attributes) => {
   const button = buttonIcon(xmark())('Close');
   const modal = h('dialog')({ class: 'modal' })(
     h('header')()(
-      h('h1')()(props.title),
+      h('h1')()(attributes.title),
       button
     )
   );

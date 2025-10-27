@@ -8,6 +8,8 @@ const store = new Store<State>({
   card: {}
 });
 
+store.on(console.log);
+
 export default store;
 
 export const subscribe = Store.subscribe(store);

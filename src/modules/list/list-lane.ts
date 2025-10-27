@@ -11,12 +11,14 @@ import lane from '../lane/lane.ts';
 import './list-lane.scss';
 
 export default (board: Board) => {
+  const item = (id: string) => h('li')()(lane(id));
+
   const ol = h('ol')({
     'hidden': board.lanes.length === 0,
     'data-type': 'lane'
-  })();
+  })(...board.lanes.map(item));
 
-  const update = list<string>(id => h('li')()(lane(id)))(ol);
+  const update = list(item)(ol);
 
   subscribe((cur, prev) => 
     maybe(selector.board)(prev)?.(board.id)?.lanes.length !==

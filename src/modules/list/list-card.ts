@@ -11,12 +11,14 @@ import card from '../card/card.ts';
 import './list-card.scss';
 
 export default (lane: Lane) => {
+  const item = (id: string) => h('li')()(card(id));
+
   const ol = h('ol')({
     'hidden': lane.cards.length === 0,
     'data-type': 'card'
-  })();
+  })(...lane.cards.map(item));
 
-  const update = list<string>(id => h('li')()(card(id)))(ol);
+  const update = list(item)(ol);
 
   subscribe((cur, prev) => 
     maybe(selector.lane)(prev)?.(lane.id)?.cards.length !==

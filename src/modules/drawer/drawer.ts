@@ -1,17 +1,56 @@
-import h from '@chronocide/hyper';
+import type { Board } from '../../state/schema.ts';
 
-import boardList from './components/drawer-board-list.ts';
-import boardAdd from './components/drawer-board-add.ts';
-import modal from './components/drawer-modal.ts';
+import h, { list } from '@chronocide/hyper';
+import { produce } from 'immer';
+import deepEqual from 'fast-deep-equal';
+
+import store, { subscribe } from '../../state/store.ts';
+import * as create from '../../state/actions/create.ts';
+
+import modal from '../../components/modal/modal.ts';
+import { plus } from '../../components/icon/icon.ts';
 
 import './drawer.scss';
 
-modal.classList.add('drawer');
-modal.append(
+
+const drawer = modal({ title: 'Pebble' });
+
+const addBoard = h('button')({ type: 'button' })(plus(), 'Add board');
+addBoard.addEventListener('click', () => {
+  store.set(produce(create.board));
+}, { passive: true });
+
+const listBoard = h('ol')({ hidden: true })();
+listBoard.addEventListener('click', event => {
+  const target = event.target as HTMLElement | null;
+  const id = (target?.closest('button') ?? target)?.dataset.board;
+
+  if (typeof id !== 'string') return;
+  store.set(produce(draft => {
+    draft.active = id;
+  }));
+
+  drawer.close();
+}, { passive: true });
+
+const update = list<Board>(board => h('li')()(
+  h('button')({
+    'type': 'button',
+    'data-board': board.id
+  })(board.title)
+))(listBoard);
+
+subscribe((cur, prev) => !deepEqual(cur, prev))(cur => {
+  listBoard.toggleAttribute('hidden', Object.values(cur.board).length === 0);
+  update(Object.values(cur.board));
+});
+
+drawer.classList.add('drawer');
+drawer.append(
   h('section')()(
     h('h2')()('Boards'),
-    boardList,
-    boardAdd
+    listBoard,
+    addBoard
   ),
   h('footer')()(
     h('p')()('Made by ', h('a')({ href: 'https://chronocide.neocities.org/' })('Chronocide'), '.'),
@@ -20,4 +59,4 @@ modal.append(
   )
 );
 
-export default modal;
+export default drawer;
