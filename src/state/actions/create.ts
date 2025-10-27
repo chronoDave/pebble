@@ -23,4 +23,4 @@ export const board = (draft: Draft<State>): void => {
   const id = uid();
 
   draft.board[id] = { id, title: 'New board', lanes: [] };
-}
+};

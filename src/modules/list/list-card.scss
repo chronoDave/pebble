@@ -1,4 +1,4 @@
-.lane-cards {
+ol[data-type="card"] {
   display: flex;
   flex-direction: column;
   overflow: auto;
