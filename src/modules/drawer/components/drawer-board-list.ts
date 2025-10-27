@@ -10,7 +10,7 @@ import modal from './drawer-modal.ts';
 
 const ul = h('ul')({ hidden: true })();
 ul.addEventListener('click', event => {
-  const target = (event.target as HTMLElement | null);
+  const target = event.target as HTMLElement | null;
   const id = (target?.closest('button') ?? target)?.dataset.board;
 
   if (typeof id === 'string') {
@@ -24,13 +24,13 @@ ul.addEventListener('click', event => {
 
 const update = list<Board>(board => h('li')()(
   h('button')({
-    type: 'button',
+    'type': 'button',
     'data-board': board.id
   })(board.title)
 ))(ul);
 
 subscribe((current, previous) => !fde(current.board, previous?.board))(current => {
-  ul.toggleAttribute('hidden', Object.values(current.board).length === 0)
+  ul.toggleAttribute('hidden', Object.values(current.board).length === 0);
   update(Object.values(current.board));
 });
 

@@ -10,10 +10,14 @@ import log from './plugins/log.ts';
 const watch = process.argv.slice(2).includes('-w');
 const outdir = path.resolve(process.cwd(), watch ? 'build' : 'docs');
 
-const configs: BuildOptions[] = [{
+const config: BuildOptions = {
   entryPoints: [
-    'src/index.ts'
+    'src/index.ts',
+    'src/index.html'
   ],
+  loader: {
+    '.html': 'copy'
+  },
   outdir,
   bundle: true,
   minify: !watch,
@@ -28,19 +32,15 @@ const configs: BuildOptions[] = [{
       }
     })
   ]
-}];
+};
 
 await fsp.rm(outdir, { recursive: true, force: true });
 await fsp.cp(path.resolve(process.cwd(), 'src/assets'), outdir, { recursive: true });
-await fsp.cp(path.resolve(process.cwd(), 'src/index.html'), path.resolve(outdir, 'index.html'));
 
 if (watch) {
-  const contexts = await Promise.all(configs.map(esbuild.context));
-  contexts.forEach(context => context.watch());
+  const context = await esbuild.context(config);
+  await context.watch();
 } else {
-  const results = await Promise.all(configs.map(esbuild.build));
-  await Promise.all(results.map(result => fsp.writeFile(
-    path.join(outdir, 'build.meta.json'),
-    JSON.stringify(result.metafile)
-  )));
+  const result = await esbuild.build(config);
+  await fsp.writeFile(path.join(outdir, 'build.meta.json'), JSON.stringify(result.metafile));
 }

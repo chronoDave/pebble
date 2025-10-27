@@ -9,7 +9,7 @@ export default (id: string) => {
   const button = h('button')({ type: 'button' })(plus(), 'Add lane');
 
   button.addEventListener('click', () => {
-    store.set(produce(create.lane(id)))
+    store.set(produce(create.lane(id)));
   }, { passive: true });
 
   return button;

@@ -7,9 +7,8 @@ import './main.scss';
 
 const main = h('main')()('No board selected');
 
-subscribe((current, previous) => previous?.active !== current.active)
-  (current => {
-    if (typeof current.active === 'string') main.replaceChildren(board(current.active))
-  });
+subscribe((current, previous) => previous?.active !== current.active)(current => {
+  if (typeof current.active === 'string') main.replaceChildren(board(current.active));
+});
 
 export default main;

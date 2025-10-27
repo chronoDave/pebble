@@ -9,8 +9,8 @@ export default (id: string) => {
   const button = h('button')({ type: 'button' })(plus(), 'Add card');
 
   button.addEventListener('click', () => {
-    store.set(produce(create.card(id)))
+    store.set(produce(create.card(id)));
   }, { passive: true });
 
   return button;
-}
+};

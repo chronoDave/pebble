@@ -1,7 +1,8 @@
-import { bars } from '../../../components/button-icon/button-icon.ts';
+import buttonIcon from '../../../components/button/button-icon.ts';
+import { bars } from '../../../components/icon/icon.ts';
 import drawer from '../../drawer/drawer.ts';
 
-const button = bars('Navigation');
+const button = buttonIcon(bars())('Navigation');
 
 button.setAttribute('aria-haspopup', 'dialog');
 button.addEventListener('click', () => drawer.showModal(), { passive: true });
