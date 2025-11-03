@@ -7,7 +7,7 @@ export const card = (lane: string) =>
   (draft: Draft<State>): void => {
     const id = uid();
 
-    draft.card[id] = { id, title: 'New card' };
+    draft.card[id] = { id, title: 'New card', lane };
     draft.lane[lane].cards.push(id);
   };
 
@@ -15,7 +15,7 @@ export const lane = (board: string) =>
   (draft: Draft<State>): void => {
     const id = uid();
 
-    draft.lane[id] = { id, title: 'New lane', cards: [] };
+    draft.lane[id] = { id, title: 'New lane', cards: [], board };
     draft.board[board].lanes.push(id);
   };
 

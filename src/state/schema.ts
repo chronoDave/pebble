@@ -2,7 +2,8 @@ import * as r from 'runtypes';
 
 export const card = r.Record({
   id: r.String,
-  title: r.String
+  title: r.String,
+  lane: r.String // Foreign key
 });
 
 export type Card = r.Static<typeof card>;
@@ -10,7 +11,8 @@ export type Card = r.Static<typeof card>;
 export const lane = r.Record({
   id: r.String,
   title: r.String,
-  cards: r.Array(r.String)
+  cards: r.Array(r.String),
+  board: r.String // Foreign key
 });
 
 export type Lane = r.Static<typeof lane>;
