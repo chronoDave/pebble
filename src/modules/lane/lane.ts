@@ -7,7 +7,7 @@ import * as selector from '../../state/selector.ts';
 
 import { plus } from '../../components/icon/icon.ts';
 
-import listCard from '../list/list-card.ts';
+import listCard from './lane-list-card.ts';
 
 import './lane.scss';
 

@@ -7,7 +7,7 @@ import * as create from '../../state/actions/create.ts';
 
 import { plus } from '../../components/icon/icon.ts';
 
-import listLane from '../list/list-lane.ts';
+import listLane from './board-list-lane.ts';
 
 import './board.scss';
 

@@ -8,7 +8,7 @@ import { maybe } from '../../lib/fn.ts';
 
 import card from '../card/card.ts';
 
-import './list-card.scss';
+import './lane-list-card.scss';
 
 export default (lane: Lane) => {
   const item = (id: string) => h('li')()(card(id));
