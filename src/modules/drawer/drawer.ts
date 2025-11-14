@@ -12,7 +12,6 @@ import { plus } from '../../components/icon/icon.ts';
 
 import './drawer.scss';
 
-
 const drawer = modal({ title: 'Pebble' });
 
 const addBoard = h('button')({ type: 'button' })(plus(), 'Add board');
@@ -20,7 +19,14 @@ addBoard.addEventListener('click', () => {
   store.set(produce(create.board));
 }, { passive: true });
 
-const listBoard = h('ol')({ hidden: true })();
+const listBoardItem = (board: Board) => h('li')()(
+  h('button')({
+    'type': 'button',
+    'data-board': board.id
+  })(board.title)
+)
+
+const listBoard = h('ol')({ hidden: Object.values(store.state.board).length === 0 })(...Object.values(store.state.board).map(listBoardItem));
 listBoard.addEventListener('click', event => {
   const target = event.target as HTMLElement | null;
   const id = (target?.closest('button') ?? target)?.dataset.board;
@@ -33,12 +39,7 @@ listBoard.addEventListener('click', event => {
   drawer.close();
 }, { passive: true });
 
-const update = list<Board>(board => h('li')()(
-  h('button')({
-    'type': 'button',
-    'data-board': board.id
-  })(board.title)
-))(listBoard);
+const update = list<Board>(listBoardItem)(listBoard);
 
 subscribe((cur, prev) => !deepEqual(cur, prev))(cur => {
   listBoard.toggleAttribute('hidden', Object.values(cur.board).length === 0);
