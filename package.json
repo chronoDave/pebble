@@ -15,13 +15,15 @@
   },
   "author": "Chronocide",
   "license": "AGPL-3.0-only",
+  "optionalDependencies": {
+    "@chronocide/eslint-config": "github:chronoDave/eslint-config",
+    "eslint": "^9.9.1"
+  },
   "devDependencies": {
     "@chronocide/esbuild-plugin-sass": "^0.0.8",
-    "@chronocide/eslint-config": "github:chronoDave/eslint-config",
     "@chronocide/hyper": "github:chronoDave/hyper",
     "@types/jsdom": "^21.1.7",
     "esbuild": "^0.25.0",
-    "eslint": "^9.9.1",
     "jsdom": "^25.0.0",
     "sass-embedded": "^1.78.0",
     "typescript": "^5.5.4"
